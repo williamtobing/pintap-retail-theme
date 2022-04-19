@@ -5,6 +5,7 @@
 
 .collection-list-title {
   margin: 0;
+  background-color: aqua;
 }
 
 @media screen and (max-width: 749px) {
