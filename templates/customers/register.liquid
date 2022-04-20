@@ -81,21 +81,6 @@
         {{ 'customer.register.email' | t }}
       </label>
     </div>
-
-    <div class="field">
-      <input
-        type="text"
-        name="customer[birthday]"
-        id="RegisterForm-Birthday"
-        {% if form.birthday %}value="{{ form.birthday }}"{% endif %}
-        autocomplete="family-name"
-        placeholder="{{ 'customer.register.birthday' | t }}"
-      >
-      <label for="RegisterForm-Birthday">
-        {{ 'customer.register.birthday' | t }}
-      </label>
-    </div>
-
     {%- if form.errors contains 'email' -%}
       <span id="RegisterForm-email-error" class="form__message">
         <svg aria-hidden="true" focusable="false" role="presentation">
