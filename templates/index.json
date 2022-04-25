@@ -35,12 +35,19 @@
           "settings": {
             "collection": "frontpage"
           }
+        },
+        "e3bbbdad-520b-44ff-a333-d521a225d0c5": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "frontpage"
+          }
         }
       },
       "block_order": [
         "1650265813f65f45a4-0",
         "1650265813f65f45a4-1",
-        "1650265813f65f45a4-2"
+        "1650265813f65f45a4-2",
+        "e3bbbdad-520b-44ff-a333-d521a225d0c5"
       ],
       "settings": {
         "title": "Collections",
