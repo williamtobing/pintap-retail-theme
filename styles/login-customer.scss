@@ -1,0 +1,76 @@
+.otp-login-app {
+  button.select-otp {
+    margin: 0;
+    padding: 1.5rem;
+    width: 400px;
+    color: #2a3588;
+    background-color: white;
+    font-weight: 400;
+    border: 1px solid #2a3588;
+    margin-bottom: 1.5rem;
+  }
+
+  button.select-otp.disabled {
+    color: #d6d6d6;
+    border: 1px solid #d6d6d6;
+    --border-offset: 0;
+
+    &:hover::after {
+      --border-offset: 0;
+    }
+  }
+
+  #OTPStepThree {
+    .input-otp {
+      input {
+        margin: 6px;
+        height: 48px;
+        width: 48px;
+        border: none;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        font-family: 'Nunito', sans-serif;
+        border: 1px solid #5c5c5c;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    button.confirm-otp {
+      width: 240px;
+      height: 56px;
+      color: white;
+      background-color: #2a3588;
+      font-size: 1.24rem;
+      border: 1px solid #2a3588;
+    }
+
+    button.confirm-otp.disabled {
+      color: white;
+      background-color: #d6d6d6;
+      border: 1px solid #d6d6d6;
+      --border-offset: 0;
+
+      &:hover::after {
+        --border-offset: 0;
+      }
+    }
+
+    form.resend-form {
+      margin-top: 0;
+
+      button.resend-otp {
+        width: 240px;
+        height: 56px;
+        color: #2a3588;
+        background-color: white;
+        font-size: 1.24rem;
+        border: 1px solid #2a3588;
+        margin: 0rem 0 1.5rem;
+      }
+    }
+  }
+}

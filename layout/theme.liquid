@@ -28,8 +28,17 @@
     {% endif %}
 
     {% render 'meta-tags' %}
-
+    
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+      referrerpolicy="no-referrer"
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3.2.33"></script>
+    <!-- <script src="https://unpkg.com/vue@3.2.33/dist/vue.global.prod.js"></script> -->
+    <script src="https://unpkg.com/vue-router@4.0.15"></script>
+
     {{ content_for_header }}
 
     {%- liquid

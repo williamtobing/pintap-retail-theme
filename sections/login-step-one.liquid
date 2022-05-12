@@ -1,0 +1,22 @@
+<div id="OTPStepOne">
+  <h1>Masuk dengan No HP</h1>
+
+  <div class="field">
+    <input
+      autocapitalize="off"
+      autocorrect="off"
+      id="CustomerPhone"
+      placeholder="No HP"
+      type="text"
+      v-model="phone" />
+    <label for="CustomerPhone">
+      No HP
+    </label>
+  </div>
+
+  <button @click.prevent="goToStepTwo" type="button">Lanjut</button>
+
+  <a href="#">
+    Belum punya akun? Daftar
+  </a>
+</div>

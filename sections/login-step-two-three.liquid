@@ -1,0 +1,74 @@
+<div class="hidden" id="OTPStepTwo">
+  <h1>Verifikasi No HP</h1>
+  <p>Verifikasi bertujuan untuk menjaga keamanan data Anda. Silakan pilih cara verifikasi akun Anda.</p>
+
+  <form @submit.prevent="handleReqOtp">
+    <input class="hidden" type="text" v-model="phone" />
+    <button class="select-otp disabled" type="button">Missed Call</button>
+    <button @click="goToStepThree" class="select-otp" type="submit">SMS</button>
+  </form>
+
+  <a @click.prevent="goBackToStepOne" href="#">Kembali</a>
+</div>
+
+<!-- Step Three -->
+
+<div class="hidden" id="OTPStepThree">
+  <h1>Konfirmasi Kode Verifikasi</h1>
+  <p>Harap masukkan kode verifikasi yang kami kirim ke ${phone} melalui SMS</p>
+
+  <form @submit.prevent="handleConfirmOtp" autocomplete="off" class="input-otp">
+    <input
+      id="first"
+      maxlength="1"
+      onkeyup="clickEvent(this,'second')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numOne">
+    <input
+      id="second"
+      maxlength="1"
+      onkeyup="clickEvent(this,'third')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numTwo">
+    <input
+      id="third"
+      maxlength="1"
+      onkeyup="clickEvent(this,'fourth')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numThree">
+    <input
+      id="fourth"
+      maxlength="1"
+      onkeyup="clickEvent(this,'fifth')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numFour">
+    <input
+      id="fifth"
+      maxlength="1"
+      onkeyup="clickEvent(this,'sixth')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numFive">
+    <input id="sixth" maxlength="1" pattern="[0-9]" type="text" v-model="numSix">
+
+    <button
+      class="confirm-otp disabled"
+      type="button"
+      v-if="numOne === '' || numTwo === '' || numThree === '' || numFour === '' ||
+        numFive === '' || numSix === ''">Konfirmasi</button>
+    <button
+      class="confirm-otp"
+      type="submit"
+      v-if="numOne && numTwo && numThree && numFour && numFive && numSix">Konfirmasi</button>
+  </form>
+
+  <form @submit.prevent="handleReqOtp" class="resend-form">
+    <input class="hidden" type="text" v-model="phone" />
+    <button class="resend-otp" type="submit">Kirim ulang kode verifikasi</button>
+  </form>
+
+</div>
