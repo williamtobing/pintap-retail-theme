@@ -1,3 +1,9 @@
+.otp-login-app button {
+  --border-offset: 0;
+}
+.otp-login-app button:hover::after {
+  --border-offset: 0;
+}
 .otp-login-app button.select-otp {
   margin: 0;
   padding: 1.5rem;
@@ -11,10 +17,6 @@
 .otp-login-app button.select-otp.disabled {
   color: #d6d6d6;
   border: 1px solid #d6d6d6;
-  --border-offset: 0;
-}
-.otp-login-app button.select-otp.disabled:hover::after {
-  --border-offset: 0;
 }
 .otp-login-app #OTPStepThree .input-otp input {
   margin: 6px;
@@ -42,10 +44,6 @@
   color: white;
   background-color: #d6d6d6;
   border: 1px solid #d6d6d6;
-  --border-offset: 0;
-}
-.otp-login-app #OTPStepThree button.confirm-otp.disabled:hover::after {
-  --border-offset: 0;
 }
 .otp-login-app #OTPStepThree form.resend-form {
   margin-top: 0;

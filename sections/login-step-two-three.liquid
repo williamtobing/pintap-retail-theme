@@ -5,10 +5,10 @@
   <form @submit.prevent="handleReqOtp">
     <input class="hidden" type="text" v-model="phone" />
     <button class="select-otp disabled" type="button">Missed Call</button>
-    <button @click="goToStepThree" class="select-otp" type="submit">SMS</button>
+    <button @click="goToStepThreeFromStepTwo" class="select-otp" type="submit">SMS</button>
   </form>
 
-  <a @click.prevent="goBackToStepOne" href="#">Kembali</a>
+  <a @click.prevent="backToStepOneFromTwo" href="#">Kembali</a>
 </div>
 
 <!-- Step Three -->
@@ -70,5 +70,7 @@
     <input class="hidden" type="text" v-model="phone" />
     <button class="resend-otp" type="submit">Kirim ulang kode verifikasi</button>
   </form>
+
+  <a @click.prevent="backToStepTwoFromThree" href="#">Kembali</a>
 
 </div>

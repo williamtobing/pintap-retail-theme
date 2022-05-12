@@ -74,23 +74,15 @@
                 .data
                 .data
                 .token);
+
+              alert("OTP Confirmed.");
             })
             .catch((err) => {
               console.log(err);
             });
         },
 
-        goBackToStepOne() {
-          const eStepOne = document.querySelector("#OTPStepOne");
-          const eStepTwo = document.querySelector("#OTPStepTwo");
-          if (eStepOne.classList.contains("hidden")) {
-            eStepTwo.classList.add("hidden");
-            eStepOne.classList.remove("hidden");
-            eStepOne.classList.add("block");
-          }
-        },
-
-        goToStepTwo() {
+        goToStepTwoFromStepOne() {
           if (this.phone === "") {
             this.phone === "" && alert("Phone must be filled");
           } else {
@@ -104,13 +96,33 @@
           }
         },
 
-        goToStepThree() {
+        goToStepThreeFromStepTwo() {
           const eStepTwo = document.querySelector("#OTPStepTwo");
           const eStepThree = document.querySelector("#OTPStepThree");
           if (eStepThree.classList.contains("hidden")) {
             eStepTwo.classList.add("hidden");
             eStepThree.classList.remove("hidden");
             eStepThree.classList.add("block");
+          }
+        },
+
+        backToStepOneFromTwo() {
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepTwo = document.querySelector("#OTPStepTwo");
+          if (eStepOne.classList.contains("hidden")) {
+            eStepTwo.classList.add("hidden");
+            eStepOne.classList.remove("hidden");
+            eStepOne.classList.add("block");
+          }
+        },
+
+        backToStepTwoFromThree() {
+          const eStepTwo = document.querySelector("#OTPStepTwo");
+          const eStepThree = document.querySelector("#OTPStepThree");
+          if (eStepTwo.classList.contains("hidden")) {
+            eStepThree.classList.add("hidden");
+            eStepTwo.classList.remove("hidden");
+            eStepTwo.classList.add("block");
           }
         }
       }
