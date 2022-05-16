@@ -2,11 +2,17 @@
   <h1>Verifikasi No HP</h1>
   <p>Verifikasi bertujuan untuk menjaga keamanan data Anda. Silakan pilih cara verifikasi akun Anda.</p>
 
-  <form @submit.prevent="handleReqOtp">
-    <input class="hidden" type="text" v-model="phone" />
-    <button class="select-otp disabled" type="button">Missed Call</button>
-    <button @click="goToStepThreeFromStepTwo" class="select-otp" type="submit">SMS</button>
-  </form>
+  <div class="select-field">
+    <form @submit.prevent="handleReqOtp('call')">
+      <input class="hidden" type="text" v-model="phone" />
+      <button @click="goToStepThreeFromStepTwo" class="select-otp" type="submit">Missed Call</button>
+    </form>
+
+    <form @submit.prevent="handleReqOtp('sms')">
+      <input class="hidden" type="text" v-model="phone" />
+      <button @click="goToStepThreeFromStepTwo" class="select-otp" type="submit">SMS</button>
+    </form>
+  </div>
 
   <a @click.prevent="backToStepOneFromTwo" href="#">Kembali</a>
 </div>
@@ -66,7 +72,7 @@
       v-if="numOne && numTwo && numThree && numFour && numFive && numSix">Konfirmasi</button>
   </form>
 
-  <form @submit.prevent="handleReqOtp" class="resend-form">
+  <form @submit.prevent="handleReqOtp('sms')" class="resend-form">
     <input class="hidden" type="text" v-model="phone" />
     <button class="resend-otp" type="submit">Kirim ulang kode verifikasi</button>
   </form>

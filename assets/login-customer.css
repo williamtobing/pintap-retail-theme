@@ -29,6 +29,12 @@
 .otp-login-app #OTPStepOne input[type=number] {
   -moz-appearance: textfield;
 }
+.otp-login-app #OTPStepTwo .select-field {
+  margin-top: 4rem;
+}
+.otp-login-app #OTPStepTwo .select-field form {
+  margin-top: 0;
+}
 .otp-login-app #OTPStepThree .input-otp input {
   margin: 6px;
   height: 48px;
