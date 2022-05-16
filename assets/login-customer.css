@@ -18,6 +18,17 @@
   color: #d6d6d6;
   border: 1px solid #d6d6d6;
 }
+.otp-login-app #OTPStepOne {
+  /* Firefox */
+}
+.otp-login-app #OTPStepOne input::-webkit-outer-spin-button,
+.otp-login-app #OTPStepOne input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.otp-login-app #OTPStepOne input[type=number] {
+  -moz-appearance: textfield;
+}
 .otp-login-app #OTPStepThree .input-otp input {
   margin: 6px;
   height: 48px;

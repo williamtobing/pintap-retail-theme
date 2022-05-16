@@ -84,7 +84,8 @@
 
         goToStepTwoFromStepOne() {
           if (this.phone === "") {
-            this.phone === "" && alert("Phone must be filled");
+            const el = document.querySelector("div#OTPStepOne input#CustomerPhone");
+            el.focus();
           } else {
             const eStepOne = document.querySelector("#OTPStepOne");
             const eStepTwo = document.querySelector("#OTPStepTwo");
@@ -135,6 +136,26 @@
   const clickEvent = (first, last) => {
     if (first.value.length) {
       document.getElementById(last).focus();
+    }
+  }
+
+  function restrictKey(evt) {
+    var theEvent = evt || window.event;
+
+    if (theEvent.type === "paste") {
+      key = event.clipboardData.getData("text/plain");
+    } else {
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+    }
+
+    var regex = /^[\d ()+-]+$/;
+
+    if (! regex.test(key)) {
+      theEvent.returnValue = false;
+      if (theEvent.preventDefault) {
+        theEvent.preventDefault();
+      }
     }
   }
 </script>

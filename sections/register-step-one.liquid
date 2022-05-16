@@ -1,0 +1,52 @@
+<div id="RegisterStepOne">
+  <h1>Buat akun</h1>
+  <form @submit.prevent="handleRegisterCustomer">
+    <div class="field">
+      <input
+        name="fullname"
+        placeholder="Nama lengkap"
+        type="text"
+        v-model="fullname">
+      <label>
+        Nama lengkap
+      </label>
+    </div>
+    <div class="field">
+      <input
+        name="phone"
+        onkeypress="restrictKey(event)"
+        placeholder="No HP"
+        type="text"
+        v-model="phone">
+      <label>
+        No HP
+      </label>
+    </div>
+    <div class="field">
+      <input name="email" placeholder="Email (opsional)" type="text" v-model="email">
+      <label>
+        Email (opsional)
+      </label>
+    </div>
+    <div class="field">
+      <input
+        name="birthdate"
+        placeholder="Tanggal Lahir"
+        type="text"
+        onfocus="(this.type='date')"
+        v-model="birthdate">
+      <label>
+        Tanggal Lahir
+      </label>
+    </div>
+    <div class="field">
+      <select id="gender" name="gender" v-model="gender">
+        <option disabled value="">Jenis Kelamin</option>
+        <option value="pria">Laki-laki</option>
+        <option value="wanita">Perempuan</option>
+      </select>
+    </div>
+
+    <button @click="goToStepTwoFromStepOne" type="submit">Lanjut</button>
+  </form>
+</div>

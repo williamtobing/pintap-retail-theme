@@ -3,10 +3,10 @@
 
   <div class="field">
     <input
-      autocapitalize="off"
-      autocorrect="off"
       id="CustomerPhone"
+      onkeypress="restrictKey(event)"
       placeholder="No HP"
+      required
       type="text"
       v-model="phone" />
     <label for="CustomerPhone">
