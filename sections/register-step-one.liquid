@@ -1,12 +1,12 @@
 <div id="RegisterStepOne">
   <h1>Buat akun</h1>
-  <form @submit.prevent="handleRegisterCustomer">
+  <form @submit.prevent="handleTempDataCustomer">
     <div class="field">
       <input
         name="fullname"
         placeholder="Nama lengkap"
         type="text"
-        v-model="fullname">
+        v-model="customerData.fullname">
       <label>
         Nama lengkap
       </label>
@@ -17,13 +17,17 @@
         onkeypress="restrictKey(event)"
         placeholder="No HP"
         type="text"
-        v-model="phone">
+        v-model="customerData.phone">
       <label>
         No HP
       </label>
     </div>
     <div class="field">
-      <input name="email" placeholder="Email (opsional)" type="text" v-model="email">
+      <input
+        name="email"
+        placeholder="Email (opsional)"
+        type="text"
+        v-model="customerData.email">
       <label>
         Email (opsional)
       </label>
@@ -31,22 +35,29 @@
     <div class="field">
       <input
         name="birthdate"
+        onfocus="(this.type='date')"
         placeholder="Tanggal Lahir"
         type="text"
-        onfocus="(this.type='date')"
-        v-model="birthdate">
+        v-model="customerData.birthdate">
       <label>
         Tanggal Lahir
       </label>
     </div>
     <div class="field">
-      <select id="gender" name="gender" v-model="gender">
+      <select
+        @change="hideGenderLabel = false"
+        id="gender"
+        name="gender"
+        v-model="customerData.gender">
         <option disabled value="">Jenis Kelamin</option>
         <option value="pria">Laki-laki</option>
         <option value="wanita">Perempuan</option>
       </select>
+      <label v-if="hideGenderLabel">
+        Jenis Kelamin
+      </label>
     </div>
 
-    <button @click="goToStepTwoFromStepOne" type="submit">Lanjut</button>
+    <button @click="goToStepTwoFromOne" type="submit">Lanjut</button>
   </form>
 </div>

@@ -68,21 +68,22 @@
               console.log(res
                 .data
                 .data
-                .token);
+                .customer_token);
 
               localStorage.setItem("token", res
                 .data
                 .data
-                .token);
+                .customer_token);
 
               alert("OTP Confirmed.");
             })
             .catch((err) => {
+              alert("Wrong OTP!");
               console.log(err);
             });
         },
 
-        goToStepTwoFromStepOne() {
+        goToStepTwoFromOne() {
           if (this.phone === "") {
             const el = document.querySelector("div#OTPStepOne input#CustomerPhone");
             el.focus();
@@ -97,7 +98,7 @@
           }
         },
 
-        goToStepThreeFromStepTwo() {
+        goToStepThreeFromTwo() {
           const eStepTwo = document.querySelector("#OTPStepTwo");
           const eStepThree = document.querySelector("#OTPStepThree");
           if (eStepThree.classList.contains("hidden")) {

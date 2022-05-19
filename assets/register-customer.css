@@ -4,11 +4,25 @@
 .register-app button:hover::after {
   --border-offset: 0;
 }
+.register-app button.select-otp {
+  margin: 0;
+  padding: 1.5rem;
+  width: 400px;
+  color: #2a3588;
+  background-color: white;
+  font-weight: 400;
+  border: 1px solid #2a3588;
+  margin-bottom: 1.5rem;
+}
+.register-app button.select-otp.disabled {
+  color: #d6d6d6;
+  border: 1px solid #d6d6d6;
+}
 .register-app select {
   font-family: "Nunito", sans-serif;
 }
-.register-app input[type=date]::-webkit-inner-spin-button,
-.register-app input[type=date]::-webkit-calendar-picker-indicator {
+.register-app #RegisterStepOne input[type=date]::-webkit-inner-spin-button,
+.register-app #RegisterStepOne input[type=date]::-webkit-calendar-picker-indicator {
   opacity: 0;
   width: 100%;
   height: 100%;
@@ -16,4 +30,120 @@
   top: 0;
   left: 0;
   -webkit-appearance: none;
+}
+.register-app #RegisterStepTwo .select-field {
+  margin-top: 4rem;
+}
+.register-app #RegisterStepTwo .select-field form {
+  margin-top: 0;
+}
+.register-app #RegisterStepThree .input-otp input {
+  margin: 6px;
+  height: 48px;
+  width: 48px;
+  border: none;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  border: 1px solid #5c5c5c;
+}
+.register-app #RegisterStepThree .input-otp input:focus {
+  outline: none;
+}
+.register-app #RegisterStepThree button.confirm-otp {
+  width: 240px;
+  height: 56px;
+  color: white;
+  background-color: #2a3588;
+  font-size: 1.24rem;
+  border: 1px solid #2a3588;
+}
+.register-app #RegisterStepThree button.confirm-otp.disabled {
+  color: white;
+  background-color: #d6d6d6;
+  border: 1px solid #d6d6d6;
+}
+.register-app #RegisterStepThree form.resend-form {
+  margin-top: 0;
+}
+.register-app #RegisterStepThree form.resend-form button.resend-otp {
+  width: 240px;
+  height: 56px;
+  color: #2a3588;
+  background-color: white;
+  font-size: 1.24rem;
+  border: 1px solid #2a3588;
+  margin: 0rem 0 1.5rem;
+}
+.register-app #RegisterStepFour form .flex-1 {
+  flex: 1 1 0%;
+}
+.register-app #RegisterStepFour form .disable-input {
+  color: #d6d6d6;
+  border: 1px solid #d6d6d6;
+  display: flex;
+  align-items: center;
+  height: 45px;
+  margin: 2rem 0 0 0;
+}
+.register-app #RegisterStepFour form .disable-input p {
+  padding: 0 2rem;
+  margin: 0;
+  font-size: 16px;
+}
+.register-app #RegisterStepFour form .two-col {
+  display: flex;
+  margin: 2rem 0 0 0;
+  gap: 10px;
+}
+.register-app #RegisterStepFour form .two-col .field {
+  margin: 0;
+}
+.register-app #RegisterStepFour form .two-col .disable-input {
+  margin: 0;
+}
+.register-app #RegisterStepFour form .textarea-field {
+  margin: 2rem 0 0 0;
+}
+.register-app #RegisterStepFour form .textarea-field textarea {
+  resize: none;
+  padding: 1.2rem 2rem;
+  width: 100%;
+  font-size: 16px;
+  font-family: "Nunito", sans-serif;
+  border: 1px solid #333333;
+}
+.register-app #RegisterStepFour form .textarea-field textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
+.register-app #RegisterStepFour form .image-field {
+  margin: 2rem 0 0 0;
+  border: 1px dashed #333333;
+  min-height: 112px;
+  overflow: hidden;
+}
+.register-app #RegisterStepFour form .image-field label {
+  cursor: pointer;
+}
+.register-app #RegisterStepFour form .image-field label .input-image {
+  width: 100%;
+  padding-top: 2.8rem;
+}
+.register-app #RegisterStepFour form .image-field label .input-image .image-viewer {
+  margin-top: 12px;
+}
+.register-app #RegisterStepFour form .image-field label .input-image .image-viewer img {
+  margin-bottom: 2.8rem;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+}
+.register-app #RegisterStepFour form .image-field label .input-image .image-viewer p {
+  margin-top: 0;
+  margin-bottom: 2.8rem;
+}
+.register-app #RegisterStepFour form .image-field label input[type=file] {
+  display: none;
 }

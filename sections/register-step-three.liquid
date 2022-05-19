@@ -1,29 +1,11 @@
-<div class="hidden" id="OTPStepTwo">
-  <h1>Verifikasi No HP</h1>
-  <p>Verifikasi bertujuan untuk menjaga keamanan data Anda. Silakan pilih cara verifikasi akun Anda.</p>
-
-  <div class="select-field">
-    <form @submit.prevent="handleReqOtp('call')">
-      <input class="hidden" type="text" v-model="phone" />
-      <button @click="goToStepThreeFromTwo" class="select-otp" type="submit">Missed Call</button>
-    </form>
-
-    <form @submit.prevent="handleReqOtp('sms')">
-      <input class="hidden" type="text" v-model="phone" />
-      <button @click="goToStepThreeFromTwo" class="select-otp" type="submit">SMS</button>
-    </form>
-  </div>
-
-  <a @click.prevent="backToStepOneFromTwo" href="#">Kembali</a>
-</div>
-
-<!-- Step Three -->
-
-<div class="hidden" id="OTPStepThree">
+<div class="hidden" id="RegisterStepThree">
   <h1>Konfirmasi Kode Verifikasi</h1>
-  <p>Harap masukkan kode verifikasi yang kami kirim ke ${phone} melalui SMS</p>
+  <p>Harap masukkan kode verifikasi yang kami kirim ke ${customerData.phone} melalui SMS</p>
 
-  <form @submit.prevent="handleConfirmOtp" autocomplete="off" class="input-otp">
+  <form
+    @submit.prevent="handleRegisterConfirmOtp"
+    autocomplete="off"
+    class="input-otp">
     <input
       id="first"
       maxlength="1"

@@ -7,18 +7,185 @@
     }
   }
 
+  button.select-otp {
+    margin: 0;
+    padding: 1.5rem;
+    width: 400px;
+    color: #2a3588;
+    background-color: white;
+    font-weight: 400;
+    border: 1px solid #2a3588;
+    margin-bottom: 1.5rem;
+  }
+
+  button.select-otp.disabled {
+    color: #d6d6d6;
+    border: 1px solid #d6d6d6;
+  }
+
   select {
     font-family: 'Nunito', sans-serif;
   }
 
-  input[type='date']::-webkit-inner-spin-button,
-  input[type='date']::-webkit-calendar-picker-indicator {
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    -webkit-appearance: none;
+  #RegisterStepOne {
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-appearance: none;
+    }
+  }
+
+  #RegisterStepTwo {
+    .select-field {
+      margin-top: 4rem;
+      form {
+        margin-top: 0;
+      }
+    }
+  }
+
+  #RegisterStepThree {
+    .input-otp {
+      input {
+        margin: 6px;
+        height: 48px;
+        width: 48px;
+        border: none;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        font-family: 'Nunito', sans-serif;
+        border: 1px solid #5c5c5c;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    button.confirm-otp {
+      width: 240px;
+      height: 56px;
+      color: white;
+      background-color: #2a3588;
+      font-size: 1.24rem;
+      border: 1px solid #2a3588;
+    }
+
+    button.confirm-otp.disabled {
+      color: white;
+      background-color: #d6d6d6;
+      border: 1px solid #d6d6d6;
+    }
+
+    form.resend-form {
+      margin-top: 0;
+
+      button.resend-otp {
+        width: 240px;
+        height: 56px;
+        color: #2a3588;
+        background-color: white;
+        font-size: 1.24rem;
+        border: 1px solid #2a3588;
+        margin: 0rem 0 1.5rem;
+      }
+    }
+  }
+
+  #RegisterStepFour {
+    form {
+      .flex-1 {
+        flex: 1 1 0%;
+      }
+
+      .disable-input {
+        color: #d6d6d6;
+        border: 1px solid #d6d6d6;
+        display: flex;
+        align-items: center;
+        height: 45px;
+        margin: 2rem 0 0 0;
+
+        p {
+          padding: 0 2rem;
+          margin: 0;
+          font-size: 16px;
+        }
+      }
+
+      .two-col {
+        display: flex;
+        margin: 2rem 0 0 0;
+        gap: 10px;
+
+        .field {
+          margin: 0;
+        }
+
+        .disable-input {
+          margin: 0;
+        }
+      }
+
+      .textarea-field {
+        margin: 2rem 0 0 0;
+
+        textarea {
+          resize: none;
+          padding: 1.2rem 2rem;
+          width: 100%;
+          font-size: 16px;
+          font-family: 'Nunito', sans-serif;
+          border: 1px solid #333333;
+
+          &:focus {
+            outline: none;
+            box-shadow: none;
+          }
+        }
+      }
+
+      .image-field {
+        margin: 2rem 0 0 0;
+        border: 1px dashed #333333;
+        min-height: 112px;
+        overflow: hidden;
+
+        label {
+          cursor: pointer;
+
+          .input-image {
+            width: 100%;
+            padding-top: 2.8rem;
+
+            .image-viewer {
+              margin-top: 12px;
+
+              img {
+                margin-bottom: 2.8rem;
+                width: 100%;
+                max-width: 480px;
+                height: auto;
+              }
+
+              p {
+                margin-top: 0;
+                margin-bottom: 2.8rem;
+              }
+            }
+          }
+
+          input[type='file'] {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }
