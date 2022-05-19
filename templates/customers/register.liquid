@@ -153,17 +153,24 @@
         },
 
         handleTempDataCustomer() {
-          if (this
-              .customerData
-              .phone
-              .startsWith("0")) {
-            this.customerData.phone = this
-              .customerData
-              .phone
-              .replace("0", "+62");
-            console.log("Step One, Convert Phone Number and Saved.");
+          if (this.customerData.phone === null) {
+            const el = document.querySelector("div#RegisterStepOne input[name='phone']");
+            el.focus();
           } else {
-            console.log("Step One Saved.");
+            if (this
+                .customerData
+                .phone
+                .startsWith("0")) {
+              this.customerData.phone = this
+                .customerData
+                .phone
+                .replace("0", "+62");
+              console.log("Step One, Convert Phone Number and Saved.");
+            } else {
+              console.log("Step One Saved.");
+            }
+
+            this.goToStepTwoFromOne();
           }
         },
 
@@ -291,17 +298,12 @@
         },
 
         goToStepTwoFromOne() {
-          if (this.customerData.phone === "") {
-            const el = document.querySelector("div#RegisterStepOne input[name='phone']");
-            el.focus();
-          } else {
-            const eStepOne = document.querySelector("#RegisterStepOne");
-            const eStepTwo = document.querySelector("#RegisterStepTwo");
-            if (eStepTwo.classList.contains("hidden")) {
-              eStepOne.classList.add("hidden");
-              eStepTwo.classList.remove("hidden");
-              eStepTwo.classList.add("block");
-            }
+          const eStepOne = document.querySelector("#RegisterStepOne");
+          const eStepTwo = document.querySelector("#RegisterStepTwo");
+          if (eStepTwo.classList.contains("hidden")) {
+            eStepOne.classList.add("hidden");
+            eStepTwo.classList.remove("hidden");
+            eStepTwo.classList.add("block");
           }
         },
 
