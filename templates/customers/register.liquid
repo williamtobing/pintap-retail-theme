@@ -235,12 +235,12 @@
                   console.log(res
                     .data
                     .data
-                    .customer_token);
+                    .token);
 
                   localStorage.setItem("token", res
                     .data
                     .data
-                    .customer_token);
+                    .token);
 
                   alert("OTP Confirmed and Registered.");
                   this.getCustomerById();
@@ -272,6 +272,24 @@
           for (const pair of formData.entries()) {
             console.log(pair[0] + ": " + pair[1]);
           }
+
+          console.warn("THE DATA!");
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/profile/address`, formData, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "multipart/form-data"
+              }
+            })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         },
 
         setPicture(e) {
@@ -289,7 +307,7 @@
               this.customerId
             }`)
             .then((res) => {
-              console.log(res.data.message);
+              console.log(res.data.message ?? "No message");
               this.customerDataFromApi = res.data.data;
             })
             .catch((err) => {

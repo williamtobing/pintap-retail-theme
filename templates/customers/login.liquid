@@ -65,15 +65,27 @@
               otp: joinNum
             })
             .then((res) => {
-              console.log(res
+              const jwt = res
                 .data
                 .data
-                .customer_token);
+                .token;
 
-              localStorage.setItem("token", res
+              const customerToken = res
                 .data
                 .data
-                .customer_token);
+                .customer_token;
+
+              console.log("token, " + jwt);
+              console.log("customer_token, " + customerToken);
+
+              localStorage.setItem("token", jwt);
+
+              axios
+                .get(`${
+                  window.location.origin
+                }/account/login/multipass/${customerToken}`)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
 
               alert("OTP Confirmed.");
             })
