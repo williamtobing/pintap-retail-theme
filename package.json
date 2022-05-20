@@ -1,0 +1,15 @@
+{
+  "name": "pintap-retail-theme",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/williamtobing/pintap-retail-theme.git",
+  "author": "william <william.suarez@pintap.id>",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.1.0",
+    "node-sass": "^7.0.1",
+    "sass": "^1.51.0"
+  }
+}

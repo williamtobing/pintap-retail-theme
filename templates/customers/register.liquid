@@ -1,134 +1,377 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'register-customer.css' | asset_url | stylesheet_tag }}
 
-<div class="customer register">
-  <svg style="display: none">
-    <symbol id="icon-error" viewbox="0 0 13 13">
-      <circle cx="6.5" cy="6.50049" r="5.5" stroke-width="2" stroke="white" />
-      <circle
-        cx="6.5"
-        cy="6.5"
-        fill="#EB001B"
-        r="5.5"
-        stroke-width="0.7"
-        stroke="#EB001B" />
-      <path
-        d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076
-          9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091
-          8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982
-          9.37267 6.12061 9.66091 6.50076 9.66091Z"
-        fill="white" />
-      <path
-        d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296
-          7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617
-          3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317
-          9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982
-          8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z"
-        fill="white"
-        stroke-width="0.7"
-        stroke="#EB001B" />
-    </symbol>
-  </svg>
-  <h1>
-    {{ 'customer.register.title' | t }}
-  </h1>
-  {%- form 'create_customer', novalidate: 'novalidate' -%}
-    {%- if form.errors -%}
-      <h2 autofocus class="form__message" tabindex="-1">
-        <svg aria-hidden="true" focusable="false" role="presentation">
-          <use href="#icon-error" />
-        </svg>
-        {{ 'templates.contact.form.error_heading' | t }}
-      </h2>
-      <ul>
-        {%- for field in form.errors -%}
-          <li>
-            {%- if field == 'form' -%}
-              {{ form.errors.messages[field] }}
-            {%- else -%}
-              <a href="#RegisterForm-{{ field }}">
-                {{ form.errors.translated_fields[field] | capitalize }}
-                {{ form.errors.messages[field] }}
-              </a>
-            {%- endif -%}
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-
-    <div class="field">
-      <input placeholder="Nama lengkap" type="text">
-      <label>
-        Nama lengkap
-      </label>
-    </div>
-
-    <div class="field">
-      <input placeholder="No HP" type="text">
-      <label>
-        No HP
-      </label>
-    </div>
-
-    <div class="field">
-      <input placeholder="Email (opsional)" type="text">
-      <label>
-        Email (opsional)
-      </label>
-    </div>
-
-    <div class="field">
-      <input placeholder="Tanggal Lahir" type="text">
-      <label>
-        Tanggal Lahir
-      </label>
-    </div>
-
-    <div class="field">
-      <select id="gender" name="gender">
-        <option value="male">Jenis Kelamin</option>
-        <option value="male">Laki-laki</option>
-        <option value="female">Perempuan</option>
-      </select>
-    </div>
-
-    <!-- <div class="field">
-      <input type="email" name="customer[email]" id="RegisterForm-email" {% if form.email %} value="{{ form.email }}" {% endif %} spellcheck="false" autocapitalize="off" autocomplete="email" aria-required="true" {% if form.errors contains 'email' %} aria-invalid="true" aria-describedby="RegisterForm-email-error" {% endif %} placeholder="{{ 'customer.register.email' | t }}">
-      <label for="RegisterForm-email">
-        {{ 'customer.register.email' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'email' -%}
-      <span class="form__message" id="RegisterForm-email-error">
-        <svg aria-hidden="true" focusable="false" role="presentation">
-          <use href="#icon-error" />
-        </svg>
-        {{ form.errors.translated_fields['email'] | capitalize }}
-        {{ form.errors.messages['email'] }}.
-      </span>
-    {%- endif -%} -->
-
-    <!-- <div class="field">
-      <input type="password" name="customer[password]" id="RegisterForm-password" aria-required="true" {% if form.errors contains 'password' %} aria-invalid="true" aria-describedby="RegisterForm-password-error" {% endif %} placeholder="{{ 'customer.register.password' | t }}">
-      <label for="RegisterForm-password">
-        {{ 'customer.register.password' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'password' -%}
-      <span class="form__message" id="RegisterForm-password-error">
-        <svg aria-hidden="true" focusable="false" role="presentation">
-          <use href="#icon-error" />
-        </svg>
-        {{ form.errors.translated_fields['password'] | capitalize }}
-        {{ form.errors.messages['password'] }}.
-      </span>
-    {%- endif -%} -->
-
-    <!-- <button>
-      {{ 'customer.register.submit' | t }}
-    </button> -->
-
-    <button>
-      Lanjut
-    </button>
-  {%- endform -%}
+<div class="customer register register-app" id="RegisterApp">
+  {% section 'register-step-one' %}
+  {% section 'register-step-two' %}
+  {% section 'register-step-three' %}
+  {% section 'register-step-four' %}
 </div>
+
+<script>
+  if (document.querySelector("#RegisterApp")) {
+    const RegisterApp = Vue.createApp({
+      delimiters: [
+        "${", "}"
+      ],
+      data() {
+        return {
+          URL: "https://dev-api-mretail.pintap.id",
+
+          customerData: {
+            fullname: null,
+            phone: null,
+            email: null,
+            birthdate: null,
+            gender: null
+          },
+
+          storeData: {
+            shopName: null,
+            province: null,
+            city: null,
+            district: null,
+            subdistrict: null,
+            zipcode: null,
+            address: null,
+            addressDetail: null,
+            shopImg: null
+          },
+
+          pictURL: null,
+
+          numOne: null,
+          numTwo: null,
+          numThree: null,
+          numFour: null,
+          numFive: null,
+          numSix: null,
+
+          provinceApi: null,
+          cityApi: null,
+          districtApi: null,
+          subdistrictApi: null,
+
+          hideGenderLabel: true,
+          hideProvinceLabel: true,
+          hideCityLabel: true,
+          hideDistrictLabel: true,
+          hideSubdistrictLabel: true,
+
+          customerToken: ""
+        };
+      },
+
+      created() {
+        axios
+          .get(`${
+            this.URL
+          }/api/v1/region/province`)
+          .then((res) => {
+            this.provinceApi = res
+              .data
+              .data
+              .sort((a, b) => a.name.localeCompare(b.name));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+
+      methods: {
+        handleProvince() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/city/${
+              this.storeData.province
+            }`)
+            .then((res) => {
+              this.cityApi = res
+                .data
+                .data
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              this.storeData.city = null;
+              this.storeData.district = null;
+              this.storeData.subdistrict = null;
+              this.hideProvinceLabel = false;
+              this.hideCityLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        handleCity() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/district/${
+              this.storeData.city
+            }`)
+            .then((res) => {
+              this.districtApi = res
+                .data
+                .data
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              this.storeData.district = null;
+              this.storeData.subdistrict = null;
+              this.hideCityLabel = false;
+              this.hideDistrictLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        handleDistrict() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/subdistrict/${
+              this.storeData.district
+            }`)
+            .then((res) => {
+              this.subdistrictApi = res
+                .data
+                .data
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              this.storeData.subdistrict = null;
+              this.hideDistrictLabel = false;
+              this.hideSubdistrictLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        handleTempDataCustomer() {
+          if (this
+              .customerData
+              .phone
+              .startsWith("0")) {
+            this.customerData.phone = this
+              .customerData
+              .phone
+              .replace("0", "+62");
+          }
+
+          this.goToStepTwoFromOne();
+        },
+
+        handleReqOtp(type) {
+          console.log("request " + type + " OTP");
+          let phone = this.customerData.phone;
+
+          if (phone.startsWith("0")) {
+            phone = phone.replace("0", "+62");
+          }
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/send`, {
+              phone: phone,
+              channel: type
+            })
+            .then((res) => {
+              console.log(res.data.message);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        handleRegisterConfirmOtp() {
+          const joinNum = [
+            this.numOne,
+            this.numTwo,
+            this.numThree,
+            this.numFour,
+            this.numFive,
+            this.numSix
+          ].join("");
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/register`, {
+              name: this.customerData.fullname,
+              phone: this.customerData.phone,
+              email: this.customerData.email,
+              birthdate: this.customerData.birthdate,
+              gender: this.customerData.gender
+            })
+            .then((res) => {
+              axios
+                .post(`${
+                  this.URL
+                }/api/v1/auth/otp/confirm`, {
+                  phone: this.customerData.phone,
+                  otp: joinNum
+                })
+                .then((res) => {
+                  localStorage.setItem("token", res
+                    .data
+                    .data
+                    .token);
+
+                  this.customerToken = res
+                    .data
+                    .data
+                    .customer_token;
+
+                  this.goToStepFourFromThree();
+                })
+                .catch((err) => {
+                  alert("Wrong OTP!");
+                  console.log(err);
+                });
+            })
+            .catch((err) => {
+              alert("Something Wrong!");
+              console.log(err);
+            });
+        },
+
+        handleRegisterStore(e) {
+          let formData = new FormData();
+          formData.append("shop_name", this.storeData.shopName);
+          formData.append("province", this.storeData.province);
+          formData.append("city", this.storeData.city);
+          formData.append("district", this.storeData.district);
+          formData.append("subdistrict", this.storeData.subdistrict);
+          formData.append("zipcode", this.storeData.zipcode);
+          formData.append("address", this.storeData.address);
+          formData.append("address_detail", this.storeData.addressDetail);
+          formData.append("file", this.storeData.shopImg);
+
+          for (const pair of formData.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+          }
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/profile/address`, formData, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "multipart/form-data"
+              }
+            })
+            .then((res) => {
+              console.log(res);
+
+              window.location = `${
+                window.location.origin
+              }/account/login/multipass/${
+                this.customerToken
+              }`;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        setPicture(e) {
+          this.storeData.shopImg = e.target.files[0];
+          this.pictURL = URL.createObjectURL(this.storeData.shopImg);
+        },
+        /* END OF HANDLE REGION */
+
+        goToStepTwoFromOne() {
+          const eStepOne = document.querySelector("#RegisterStepOne");
+          const eStepTwo = document.querySelector("#RegisterStepTwo");
+          if (eStepTwo.classList.contains("hidden")) {
+            eStepOne.classList.add("hidden");
+            eStepTwo.classList.remove("hidden");
+            eStepTwo.classList.add("block");
+          }
+        },
+
+        goToStepThreeFromTwo() {
+          const eStepTwo = document.querySelector("#RegisterStepTwo");
+          const eStepThree = document.querySelector("#RegisterStepThree");
+          if (eStepThree.classList.contains("hidden")) {
+            eStepTwo.classList.add("hidden");
+            eStepThree.classList.remove("hidden");
+            eStepThree.classList.add("block");
+          }
+        },
+
+        goToStepFourFromThree() {
+          const eStepThree = document.querySelector("#RegisterStepThree");
+          const eStepFour = document.querySelector("#RegisterStepFour");
+          if (eStepFour.classList.contains("hidden")) {
+            eStepThree.classList.add("hidden");
+            eStepFour.classList.remove("hidden");
+            eStepFour.classList.add("block");
+          }
+        },
+
+        backToStepOneFromTwo() {
+          const eStepOne = document.querySelector("#RegisterStepOne");
+          const eStepTwo = document.querySelector("#RegisterStepTwo");
+          if (eStepOne.classList.contains("hidden")) {
+            eStepTwo.classList.add("hidden");
+            eStepOne.classList.remove("hidden");
+            eStepOne.classList.add("block");
+          }
+        },
+
+        backToStepTwoFromThree() {
+          const eStepTwo = document.querySelector("#RegisterStepTwo");
+          const eStepThree = document.querySelector("#RegisterStepThree");
+          if (eStepTwo.classList.contains("hidden")) {
+            eStepThree.classList.add("hidden");
+            eStepTwo.classList.remove("hidden");
+            eStepTwo.classList.add("block");
+          }
+        },
+
+        backToStepThreeFromFour() {
+          const eStepThree = document.querySelector("#RegisterStepThree");
+          const eStepFour = document.querySelector("#RegisterStepFour");
+          if (eStepThree.classList.contains("hidden")) {
+            eStepFour.classList.add("hidden");
+            eStepThree.classList.remove("hidden");
+            eStepThree.classList.add("block");
+          }
+        }
+        /* END OF MOVE STEP REGION */
+      }
+    });
+
+    RegisterApp.mount("#RegisterApp");
+
+  }
+
+  const clickEvent = (first, last) => {
+    if (first.value.length) {
+      document.getElementById(last).focus();
+    }
+  }
+
+  function restrictKey(evt) {
+    var theEvent = evt || window.event;
+
+    if (theEvent.type === "paste") {
+      key = event.clipboardData.getData("text/plain");
+    } else {
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+    }
+
+    var regex = /^[\d ()+-]+$/;
+
+    if (! regex.test(key)) {
+      theEvent.returnValue = false;
+      if (theEvent.preventDefault) {
+        theEvent.preventDefault();
+      }
+    }
+  }
+</script>

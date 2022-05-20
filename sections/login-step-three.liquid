@@ -1,0 +1,76 @@
+<div class="hidden" id="OTPStepThree">
+  <h1>Konfirmasi Kode Verifikasi</h1>
+  <p>Harap masukkan kode verifikasi yang kami kirim ke ${phone} melalui SMS</p>
+
+  <form @submit.prevent="handleConfirmOtp" autocomplete="off" class="input-otp">
+    <input
+      id="first"
+      maxlength="1"
+      onkeypress="restrictKey(event)"
+      onkeyup="clickEvent(this,'second')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numOne">
+    <input
+      id="second"
+      maxlength="1"
+      onkeypress="restrictKey(event)"
+      onkeyup="clickEvent(this,'third')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numTwo">
+    <input
+      id="third"
+      maxlength="1"
+      onkeypress="restrictKey(event)"
+      onkeyup="clickEvent(this,'fourth')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numThree">
+    <input
+      id="fourth"
+      maxlength="1"
+      onkeypress="restrictKey(event)"
+      onkeyup="clickEvent(this,'fifth')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numFour">
+    <input
+      id="fifth"
+      maxlength="1"
+      onkeypress="restrictKey(event)"
+      onkeyup="clickEvent(this,'sixth')"
+      pattern="[0-9]"
+      type="text"
+      v-model="numFive">
+    <input
+      id="sixth"
+      maxlength="1"
+      onkeypress="restrictKey(event)"
+      pattern="[0-9]"
+      type="text"
+      v-model="numSix">
+
+    <br>
+
+    <button
+      class="confirm-otp disabled"
+      type="button"
+      v-if="numOne === null || numTwo === null || numThree === null || numFour === null
+        || numFive === null || numSix === null || numOne === '' || numTwo === '' ||
+        numThree === '' || numFour === '' || numFive === '' || numSix === ''">Konfirmasi</button>
+    <button
+      class="confirm-otp"
+      type="submit"
+      v-if="numOne !== null && numTwo !== null && numThree !== null && numFour !== null
+        && numFive !== null && numSix !== null && numOne !== '' && numTwo !== '' &&
+        numThree !== '' && numFour !== '' && numFive !== '' && numSix !== ''">Konfirmasi</button>
+  </form>
+
+  <form @submit.prevent="handleReqOtp('sms')" class="resend-form">
+    <input class="hidden" type="text" v-model="phone" />
+    <button class="resend-otp" type="submit">Kirim ulang kode verifikasi</button>
+  </form>
+
+  <a @click.prevent="backToStepTwoFromThree" href="#">Kembali</a>
+</div>

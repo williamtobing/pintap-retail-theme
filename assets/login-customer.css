@@ -1,0 +1,84 @@
+.otp-login-app button {
+  --border-offset: 0;
+}
+.otp-login-app button:hover::after {
+  --border-offset: 0;
+}
+.otp-login-app button.select-otp {
+  margin: 0;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  color: #2a3588;
+  background-color: white;
+  font-weight: 400;
+  border: 1px solid #2a3588;
+  margin-bottom: 1.5rem;
+}
+.otp-login-app button.select-otp.disabled {
+  color: #d6d6d6;
+  border: 1px solid #d6d6d6;
+}
+.otp-login-app #OTPStepOne {
+  /* Firefox */
+}
+.otp-login-app #OTPStepOne input::-webkit-outer-spin-button,
+.otp-login-app #OTPStepOne input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.otp-login-app #OTPStepOne input[type=number] {
+  -moz-appearance: textfield;
+}
+.otp-login-app #OTPStepTwo .select-field {
+  margin-top: 4rem;
+}
+.otp-login-app #OTPStepTwo .select-field form {
+  margin-top: 0;
+}
+.otp-login-app #OTPStepThree .input-otp input {
+  margin: 4px;
+  height: 40px;
+  width: 40px;
+  border: none;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  border: 1px solid #5c5c5c;
+}
+@media screen and (min-width: 768px) {
+  .otp-login-app #OTPStepThree .input-otp input {
+    margin: 6px;
+    height: 48px;
+    width: 48px;
+  }
+}
+.otp-login-app #OTPStepThree .input-otp input:focus {
+  outline: none;
+}
+.otp-login-app #OTPStepThree button.confirm-otp {
+  width: 240px;
+  height: 56px;
+  color: white;
+  background-color: #2a3588;
+  font-size: 1.24rem;
+  border: 1px solid #2a3588;
+}
+.otp-login-app #OTPStepThree button.confirm-otp.disabled {
+  color: white;
+  background-color: #d6d6d6;
+  border: 1px solid #d6d6d6;
+}
+.otp-login-app #OTPStepThree form.resend-form {
+  margin-top: 0;
+}
+.otp-login-app #OTPStepThree form.resend-form button.resend-otp {
+  width: 240px;
+  height: 56px;
+  color: #2a3588;
+  background-color: white;
+  font-size: 1.24rem;
+  border: 1px solid #2a3588;
+  margin: 0rem 0 1.5rem;
+}
