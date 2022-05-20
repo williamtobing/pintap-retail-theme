@@ -1,6 +1,14 @@
 .register-app {
   max-width: 60rem !important;
 }
+.register-app h1 {
+  font-size: 28px;
+}
+@media screen and (min-width: 768px) {
+  .register-app h1 {
+    font-size: 32px;
+  }
+}
 .register-app button {
   --border-offset: 0;
 }
