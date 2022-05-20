@@ -10,7 +10,8 @@
   button.select-otp {
     margin: 0;
     padding: 1.5rem;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     color: #2a3588;
     background-color: white;
     font-weight: 400;
@@ -48,15 +49,21 @@
   #OTPStepThree {
     .input-otp {
       input {
-        margin: 6px;
-        height: 48px;
-        width: 48px;
+        margin: 4px;
+        height: 40px;
+        width: 40px;
         border: none;
         text-align: center;
         font-size: 32px;
         font-weight: 700;
         font-family: 'Nunito', sans-serif;
         border: 1px solid #5c5c5c;
+
+        @media screen and (min-width: 768px) {
+          margin: 6px;
+          height: 48px;
+          width: 48px;
+        }
 
         &:focus {
           outline: none;

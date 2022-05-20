@@ -1,20 +1,25 @@
 <div id="OTPStepOne">
   <h1>Masuk dengan No HP</h1>
 
-  <div class="field">
-    <input
-      id="CustomerPhone"
-      onkeypress="restrictKey(event)"
-      placeholder="No HP"
-      required
-      type="text"
-      v-model="phone" />
-    <label for="CustomerPhone">
-      No HP
-    </label>
-  </div>
+  <form @submit.prevent="goToStepTwoFromOne">
+    <div class="field">
+      <input
+        id="CustomerPhone"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi No HP')"
+        onkeypress="restrictKey(event)"
+        pattern=".*\S+.*"
+        placeholder="No HP"
+        required
+        type="text"
+        v-model="phone" />
+      <label for="CustomerPhone">
+        No HP
+      </label>
+    </div>
 
-  <button @click.prevent="goToStepTwoFromOne" type="button">Lanjut</button>
+    <button type="submit">Lanjut</button>
+  </form>
 
   <a href="{{ routes.account_register_url }}">
     Belum punya akun? Daftar

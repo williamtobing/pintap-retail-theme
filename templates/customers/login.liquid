@@ -3,7 +3,8 @@
 
 <div class="customer login otp-login-app" id="OTPLoginApp">
   {% section 'login-step-one' %}
-  {% section 'login-step-two-three' %}
+  {% section 'login-step-two' %}
+  {% section 'login-step-three' %}
 </div>
 
 <script>
@@ -14,19 +15,19 @@
       ],
       data() {
         return {
-          phone: "",
-          numOne: "",
-          numTwo: "",
-          numThree: "",
-          numFour: "",
-          numFive: "",
-          numSix: ""
+          phone: null,
+          numOne: null,
+          numTwo: null,
+          numThree: null,
+          numFour: null,
+          numFive: null,
+          numSix: null
         };
       },
 
       methods: {
         handleReqOtp(type) {
-          console.log("reqOTP", type);
+          console.log("request " + type + " OTP");
 
           if (this.phone.startsWith("0")) {
             this.phone = this.phone.replace("0", "+62");
@@ -38,7 +39,7 @@
               channel: type
             })
             .then((res) => {
-              console.log(res.data.message);
+              this.goToStepThreeFromTwo();
             })
             .catch((err) => {
               console.log(err);
@@ -75,12 +76,7 @@
                 .data
                 .customer_token;
 
-              console.log("token, " + jwt);
-              console.log("customer_token, " + customerToken);
-
               localStorage.setItem("token", jwt);
-
-              alert("OTP Confirmed.");
 
               window.location = `${
                 window.location.origin
@@ -94,17 +90,12 @@
         },
 
         goToStepTwoFromOne() {
-          if (this.phone === "") {
-            const el = document.querySelector("div#OTPStepOne input#CustomerPhone");
-            el.focus();
-          } else {
-            const eStepOne = document.querySelector("#OTPStepOne");
-            const eStepTwo = document.querySelector("#OTPStepTwo");
-            if (eStepTwo.classList.contains("hidden")) {
-              eStepOne.classList.add("hidden");
-              eStepTwo.classList.remove("hidden");
-              eStepTwo.classList.add("block");
-            }
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepTwo = document.querySelector("#OTPStepTwo");
+          if (eStepTwo.classList.contains("hidden")) {
+            eStepOne.classList.add("hidden");
+            eStepTwo.classList.remove("hidden");
+            eStepTwo.classList.add("block");
           }
         },
 

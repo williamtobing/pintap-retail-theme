@@ -1,3 +1,6 @@
+.register-app {
+  max-width: 60rem !important;
+}
 .register-app button {
   --border-offset: 0;
 }
@@ -7,7 +10,8 @@
 .register-app button.select-otp {
   margin: 0;
   padding: 1.5rem;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   color: #2a3588;
   background-color: white;
   font-weight: 400;
@@ -20,6 +24,10 @@
 }
 .register-app select {
   font-family: "Nunito", sans-serif;
+}
+.register-app #RegisterStepOne {
+  max-width: 47.8rem !important;
+  margin: 0 auto;
 }
 .register-app #RegisterStepOne input[type=date]::-webkit-inner-spin-button,
 .register-app #RegisterStepOne input[type=date]::-webkit-calendar-picker-indicator {
@@ -38,15 +46,22 @@
   margin-top: 0;
 }
 .register-app #RegisterStepThree .input-otp input {
-  margin: 6px;
-  height: 48px;
-  width: 48px;
+  margin: 4px;
+  height: 40px;
+  width: 40px;
   border: none;
   text-align: center;
   font-size: 32px;
   font-weight: 700;
   font-family: "Nunito", sans-serif;
   border: 1px solid #5c5c5c;
+}
+@media screen and (min-width: 768px) {
+  .register-app #RegisterStepThree .input-otp input {
+    margin: 6px;
+    height: 48px;
+    width: 48px;
+  }
 }
 .register-app #RegisterStepThree .input-otp input:focus {
   outline: none;

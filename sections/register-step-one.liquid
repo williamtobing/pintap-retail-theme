@@ -5,6 +5,7 @@
       <input
         name="fullname"
         placeholder="Nama lengkap"
+        required
         type="text"
         v-model="customerData.fullname">
       <label>
@@ -16,6 +17,7 @@
         name="phone"
         onkeypress="restrictKey(event)"
         placeholder="No HP"
+        required
         type="text"
         v-model="customerData.phone">
       <label>
@@ -37,6 +39,7 @@
         name="birthdate"
         onfocus="(this.type='date')"
         placeholder="Tanggal Lahir"
+        required
         type="text"
         v-model="customerData.birthdate">
       <label>
@@ -48,6 +51,7 @@
         @change="hideGenderLabel = false"
         id="gender"
         name="gender"
+        required
         v-model="customerData.gender">
         <option disabled value="">Jenis Kelamin</option>
         <option value="pria">Laki-laki</option>

@@ -9,6 +9,7 @@
     <input
       id="first"
       maxlength="1"
+      onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'second')"
       pattern="[0-9]"
       type="text"
@@ -16,6 +17,7 @@
     <input
       id="second"
       maxlength="1"
+      onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'third')"
       pattern="[0-9]"
       type="text"
@@ -23,6 +25,7 @@
     <input
       id="third"
       maxlength="1"
+      onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fourth')"
       pattern="[0-9]"
       type="text"
@@ -30,6 +33,7 @@
     <input
       id="fourth"
       maxlength="1"
+      onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fifth')"
       pattern="[0-9]"
       type="text"
@@ -37,21 +41,33 @@
     <input
       id="fifth"
       maxlength="1"
+      onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'sixth')"
       pattern="[0-9]"
       type="text"
       v-model="numFive">
-    <input id="sixth" maxlength="1" pattern="[0-9]" type="text" v-model="numSix">
+    <input
+      id="sixth"
+      maxlength="1"
+      onkeypress="restrictKey(event)"
+      pattern="[0-9]"
+      type="text"
+      v-model="numSix">
+
+    <br>
 
     <button
       class="confirm-otp disabled"
       type="button"
-      v-if="numOne === '' || numTwo === '' || numThree === '' || numFour === '' ||
-        numFive === '' || numSix === ''">Konfirmasi</button>
+      v-if="numOne === null || numTwo === null || numThree === null || numFour === null
+        || numFive === null || numSix === null || numOne === '' || numTwo === '' ||
+        numThree === '' || numFour === '' || numFive === '' || numSix === ''">Konfirmasi</button>
     <button
       class="confirm-otp"
       type="submit"
-      v-if="numOne && numTwo && numThree && numFour && numFive && numSix">Konfirmasi</button>
+      v-if="numOne !== null && numTwo !== null && numThree !== null && numFour !== null
+        && numFive !== null && numSix !== null && numOne !== '' && numTwo !== '' &&
+        numThree !== '' && numFour !== '' && numFive !== '' && numSix !== ''">Konfirmasi</button>
   </form>
 
   <form @submit.prevent="handleReqOtp('sms')" class="resend-form">

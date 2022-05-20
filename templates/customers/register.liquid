@@ -1,10 +1,7 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
 {{ 'register-customer.css' | asset_url | stylesheet_tag }}
 
-<div
-  class="customer register register-app"
-  id="RegisterApp"
-  style="max-width: 60rem;">
+<div class="customer register register-app" id="RegisterApp">
   {% section 'register-step-one' %}
   {% section 'register-step-two' %}
   {% section 'register-step-three' %}
@@ -43,15 +40,12 @@
 
           pictURL: null,
 
-          numOne: "",
-          numTwo: "",
-          numThree: "",
-          numFour: "",
-          numFive: "",
-          numSix: "",
-
-          customerId: "",
-          customerDataFromApi: {},
+          numOne: null,
+          numTwo: null,
+          numThree: null,
+          numFour: null,
+          numFive: null,
+          numSix: null,
 
           provinceApi: null,
           cityApi: null,
@@ -62,7 +56,9 @@
           hideProvinceLabel: true,
           hideCityLabel: true,
           hideDistrictLabel: true,
-          hideSubdistrictLabel: true
+          hideSubdistrictLabel: true,
+
+          customerToken: ""
         };
       },
 
@@ -153,29 +149,21 @@
         },
 
         handleTempDataCustomer() {
-          if (this.customerData.phone === null) {
-            const el = document.querySelector("div#RegisterStepOne input[name='phone']");
-            el.focus();
-          } else {
-            if (this
-                .customerData
-                .phone
-                .startsWith("0")) {
-              this.customerData.phone = this
-                .customerData
-                .phone
-                .replace("0", "+62");
-              console.log("Step One, Convert Phone Number and Saved.");
-            } else {
-              console.log("Step One Saved.");
-            }
-
-            this.goToStepTwoFromOne();
+          if (this
+              .customerData
+              .phone
+              .startsWith("0")) {
+            this.customerData.phone = this
+              .customerData
+              .phone
+              .replace("0", "+62");
           }
+
+          this.goToStepTwoFromOne();
         },
 
         handleReqOtp(type) {
-          console.log("reqOTP", type);
+          console.log("request " + type + " OTP");
           let phone = this.customerData.phone;
 
           if (phone.startsWith("0")) {
@@ -218,12 +206,6 @@
               gender: this.customerData.gender
             })
             .then((res) => {
-              console.log(res.data.message);
-              this.customerId = res
-                .data
-                .data
-                .id;
-
               axios
                 .post(`${
                   this.URL
@@ -232,18 +214,16 @@
                   otp: joinNum
                 })
                 .then((res) => {
-                  console.log(res
-                    .data
-                    .data
-                    .token);
-
                   localStorage.setItem("token", res
                     .data
                     .data
                     .token);
 
-                  alert("OTP Confirmed and Registered.");
-                  this.getCustomerById();
+                  this.customerToken = res
+                    .data
+                    .data
+                    .customer_token;
+
                   this.goToStepFourFromThree();
                 })
                 .catch((err) => {
@@ -273,8 +253,6 @@
             console.log(pair[0] + ": " + pair[1]);
           }
 
-          console.warn("THE DATA!");
-
           axios
             .post(`${
               this.URL
@@ -286,6 +264,12 @@
             })
             .then((res) => {
               console.log(res);
+
+              window.location = `${
+                window.location.origin
+              }/account/login/multipass/${
+                this.customerToken
+              }`;
             })
             .catch((err) => {
               console.log(err);
@@ -297,23 +281,6 @@
           this.pictURL = URL.createObjectURL(this.storeData.shopImg);
         },
         /* END OF HANDLE REGION */
-
-        // TO BE DELETE SOON
-        getCustomerById() {
-          axios
-            .get(`${
-              this.URL
-            }/api/v1/profile/info/${
-              this.customerId
-            }`)
-            .then((res) => {
-              console.log(res.data.message ?? "No message");
-              this.customerDataFromApi = res.data.data;
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        },
 
         goToStepTwoFromOne() {
           const eStepOne = document.querySelector("#RegisterStepOne");
