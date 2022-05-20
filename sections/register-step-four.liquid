@@ -5,11 +5,15 @@
     <div class="field">
       <input
         name="shopName"
-        placeholder="Nama toko"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi Nama Toko')"
+        pattern=".*\S+.*"
+        placeholder="Nama Toko"
+        required
         type="text"
         v-model="storeData.shopName">
       <label>
-        Nama toko
+        Nama Toko
       </label>
     </div>
 
@@ -19,6 +23,9 @@
           @change="handleProvince"
           id="province"
           name="province"
+          oninput="this.setCustomValidity('')"
+          oninvalid="this.setCustomValidity('Harap isi Provinsi')"
+          required
           v-model="storeData.province">
           <option disabled style="color: #D6D6D6;" value="">Provinsi</option>
           <option :value="item.id" v-for="item in provinceApi">${item.name}</option>
@@ -29,7 +36,14 @@
       </div>
 
       <div class="field flex-1" v-if="storeData.province">
-        <select @change="handleCity" id="city" name="city" v-model="storeData.city">
+        <select
+          @change="handleCity"
+          id="city"
+          name="city"
+          oninput="this.setCustomValidity('')"
+          oninvalid="this.setCustomValidity('Harap isi Kabupaten/Kota')"
+          required
+          v-model="storeData.city">
           <option disabled style="color: #D6D6D6;" value="">Kabupaten/Kota</option>
           <option :value="item.id" v-for="item in cityApi">${item.name}</option>
         </select>
@@ -48,6 +62,9 @@
           @change="handleDistrict"
           id="district"
           name="district"
+          oninput="this.setCustomValidity('')"
+          oninvalid="this.setCustomValidity('Harap isi Kecamatan')"
+          required
           v-model="storeData.district">
           <option disabled style="color: #D6D6D6;" value="">Kecamatan</option>
           <option :value="item.id" v-for="item in districtApi">${item.name}</option>
@@ -65,6 +82,9 @@
           @change="hideSubdistrictLabel = false"
           id="subdistrict"
           name="subdistrict"
+          oninput="this.setCustomValidity('')"
+          oninvalid="this.setCustomValidity('Harap isi Kelurahan')"
+          required
           v-model="storeData.subdistrict">
           <option disabled style="color: #D6D6D6;" value="">Kelurahan</option>
           <option :value="item.id" v-for="item in subdistrictApi">${item.name}</option>
@@ -81,7 +101,10 @@
     <div class="field" v-if="storeData.subdistrict">
       <input
         name="zipcode"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi Kode Pos')"
         placeholder="Kode Pos"
+        required
         type="text"
         v-model="storeData.zipcode">
       <label>
@@ -95,7 +118,11 @@
     <div class="textarea-field">
       <textarea
         name="address"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi Alamat')"
+        pattern=".*\S+.*"
         placeholder="Alamat"
+        required
         rows="4"
         v-model="storeData.address"></textarea>
     </div>
@@ -103,6 +130,7 @@
     <div class="field">
       <input
         name="addressDetail"
+        pattern=".*\S+.*"
         placeholder="Detail Alamat (Patokan)"
         type="text"
         v-model="storeData.addressDetail">

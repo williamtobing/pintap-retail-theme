@@ -4,18 +4,24 @@
     <div class="field">
       <input
         name="fullname"
-        placeholder="Nama lengkap"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi Nama Lengkap')"
+        pattern=".*\S+.*"
+        placeholder="Nama Lengkap"
         required
         type="text"
         v-model="customerData.fullname">
       <label>
-        Nama lengkap
+        Nama Lengkap
       </label>
     </div>
     <div class="field">
       <input
         name="phone"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi No HP')"
         onkeypress="restrictKey(event)"
+        pattern=".*\S+.*"
         placeholder="No HP"
         required
         type="text"
@@ -27,6 +33,7 @@
     <div class="field">
       <input
         name="email"
+        pattern=".*\S+.*"
         placeholder="Email (opsional)"
         type="text"
         v-model="customerData.email">
@@ -38,6 +45,8 @@
       <input
         name="birthdate"
         onfocus="(this.type='date')"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi Tanggal Lahir')"
         placeholder="Tanggal Lahir"
         required
         type="text"
@@ -51,6 +60,8 @@
         @change="hideGenderLabel = false"
         id="gender"
         name="gender"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi Jenis Kelamin')"
         required
         v-model="customerData.gender">
         <option disabled value="">Jenis Kelamin</option>
