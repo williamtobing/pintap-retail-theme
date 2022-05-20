@@ -71,7 +71,7 @@
             this.provinceApi = res
               .data
               .data
-              .sort((a, b) => a.name.localeCompare(b.name));
+              .sort((a, b) => a.name_id.localeCompare(b.name_id));
           })
           .catch((err) => {
             console.log(err);
@@ -263,8 +263,6 @@
               }
             })
             .then((res) => {
-              console.log(res);
-
               window.location = `${
                 window.location.origin
               }/account/login/multipass/${
