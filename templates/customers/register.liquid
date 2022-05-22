@@ -58,7 +58,10 @@
           hideDistrictLabel: true,
           hideSubdistrictLabel: true,
 
-          customerToken: ""
+          customerToken: "",
+
+          successOTP: false,
+          failOTP: false
         };
       },
 
@@ -224,15 +227,17 @@
                     .data
                     .customer_token;
 
+                  this.failOTP = false;
+                  this.successOTP = true;
+
                   this.goToStepFourFromThree();
                 })
                 .catch((err) => {
-                  alert("Wrong OTP!");
-                  console.log(err);
+                  this.failOTP = true;
                 });
             })
             .catch((err) => {
-              alert("Something Wrong!");
+              alert("Pendaftaran gagal.");
               console.log(err);
             });
         },

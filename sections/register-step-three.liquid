@@ -1,6 +1,7 @@
 <div class="hidden" id="RegisterStepThree">
   <h1>Konfirmasi Kode Verifikasi</h1>
   <p>Harap masukkan kode verifikasi yang kami kirim ke ${customerData.phone} melalui SMS</p>
+  <p v-if="false">Kami telah mengirimkan panggilan ke nomor ${phone}. Tidak perlu diangkat. Masukkan 6 digit terakhir dari panggilan tersebut.</p>
 
   <form
     @submit.prevent="handleRegisterConfirmOtp"
@@ -54,6 +55,9 @@
       type="text"
       v-model="numSix">
 
+    <p class="success-text" v-if="successOTP">Verifikasi berhasil. Harap tunggu sebentar...</p>
+    <p class="fail-text" v-if="failOTP">Verifikasi gagal. Pastikan kode yang dimasukkan benar.</p>
+
     <br>
 
     <button
@@ -61,18 +65,20 @@
       type="button"
       v-if="numOne === null || numTwo === null || numThree === null || numFour === null
         || numFive === null || numSix === null || numOne === '' || numTwo === '' ||
-        numThree === '' || numFour === '' || numFive === '' || numSix === ''">Konfirmasi</button>
+        numThree === '' || numFour === '' || numFive === '' || numSix === '' ||
+        successOTP">Konfirmasi</button>
     <button
       class="confirm-otp"
       type="submit"
       v-if="numOne !== null && numTwo !== null && numThree !== null && numFour !== null
         && numFive !== null && numSix !== null && numOne !== '' && numTwo !== '' &&
-        numThree !== '' && numFour !== '' && numFive !== '' && numSix !== ''">Konfirmasi</button>
+        numThree !== '' && numFour !== '' && numFive !== '' && numSix !== '' && !
+        successOTP">Konfirmasi</button>
   </form>
 
   <form @submit.prevent="handleReqOtp('sms')" class="resend-form">
     <input class="hidden" type="text" v-model="phone" />
-    <button class="resend-otp" type="submit">Kirim ulang kode verifikasi</button>
+    <button :class="[successOTP ? 'disabled ' : '', 'resend-otp']" type="submit">Kirim ulang kode verifikasi</button>
   </form>
 
   <a @click.prevent="backToStepTwoFromThree" href="#">Kembali</a>
