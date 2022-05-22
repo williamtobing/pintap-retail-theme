@@ -21,7 +21,10 @@
           numThree: null,
           numFour: null,
           numFive: null,
-          numSix: null
+          numSix: null,
+
+          successOTP: false,
+          failOTP: false
         };
       },
 
@@ -78,14 +81,16 @@
 
               localStorage.setItem("token", jwt);
 
+              this.failOTP = false;
+              this.successOTP = true;
+
               window.location = `${
                 window.location.origin
               }/account/login/multipass/${customerToken}`;
 
             })
             .catch((err) => {
-              alert("Wrong OTP!");
-              console.log(err);
+              this.failOTP = true;
             });
         },
 
