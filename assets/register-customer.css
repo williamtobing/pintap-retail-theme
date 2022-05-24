@@ -37,16 +37,6 @@
   max-width: 47.8rem !important;
   margin: 0 auto;
 }
-.register-app #RegisterStepOne input[type=date]::-webkit-inner-spin-button,
-.register-app #RegisterStepOne input[type=date]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-appearance: none;
-}
 .register-app #RegisterStepTwo .select-field {
   margin-top: 4rem;
 }
@@ -185,4 +175,21 @@
 }
 .register-app #RegisterStepFour form .image-field label input[type=file] {
   display: none;
+}
+
+/* flatpickr style override */
+.flatpickr-calendar {
+  border: 1px solid lightgray !important;
+}
+.flatpickr-calendar .flatpickr-months span.flatpickr-next-month,
+.flatpickr-calendar .flatpickr-months span.flatpickr-prev-month {
+  pointer-events: none !important;
+}
+.flatpickr-calendar .flatpickr-months .flatpickr-month {
+  height: 48px !important;
+}
+.flatpickr-calendar .flatpickr-months .flatpickr-month select.flatpickr-monthDropdown-months {
+  margin: 0 20px 0 0 !important;
+  border: 1px solid lightgray !important;
+  padding: 0 !important;
 }

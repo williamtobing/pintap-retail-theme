@@ -41,17 +41,6 @@
   #RegisterStepOne {
     max-width: 47.8rem !important;
     margin: 0 auto;
-
-    input[type='date']::-webkit-inner-spin-button,
-    input[type='date']::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      -webkit-appearance: none;
-    }
   }
 
   #RegisterStepTwo {
@@ -224,6 +213,28 @@
             display: none;
           }
         }
+      }
+    }
+  }
+}
+
+/* flatpickr style override */
+.flatpickr-calendar {
+  border: 1px solid lightgray !important;
+
+  .flatpickr-months {
+    span.flatpickr-next-month,
+    span.flatpickr-prev-month {
+      pointer-events: none !important;
+    }
+
+    .flatpickr-month {
+      height: 48px !important;
+
+      select.flatpickr-monthDropdown-months {
+        margin: 0 20px 0 0 !important;
+        border: 1px solid lightgray !important;
+        padding: 0 !important;
       }
     }
   }
