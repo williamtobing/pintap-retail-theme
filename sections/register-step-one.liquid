@@ -43,10 +43,11 @@
     </div>
     <div class="field">
       <input
-        name="birthdate"
-        onfocus="(this.type='date')"
+        class="flatdate-birth"
         oninput="this.setCustomValidity('')"
         oninvalid="this.setCustomValidity('Harap isi Tanggal Lahir')"
+        onkeypress="restrictKey(event)"
+        pattern=".*\S+.*"
         placeholder="Tanggal Lahir"
         required
         type="text"

@@ -5,12 +5,12 @@
   <div class="select-field">
     <form @submit.prevent="handleReqOtp('call')">
       <input class="hidden" type="text" v-model="phone" />
-      <button @click="goToStepThreeFromTwo" class="select-otp" type="submit">Missed Call</button>
+      <button class="select-otp" type="submit">Missed Call</button>
     </form>
 
     <form @submit.prevent="handleReqOtp('sms')">
       <input class="hidden" type="text" v-model="phone" />
-      <button @click="goToStepThreeFromTwo" class="select-otp" type="submit">SMS</button>
+      <button class="select-otp" type="submit">SMS</button>
     </form>
   </div>
 

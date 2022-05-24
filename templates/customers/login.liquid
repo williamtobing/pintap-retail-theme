@@ -23,6 +23,7 @@
           numFive: null,
           numSix: null,
 
+          typeOTP: "",
           successOTP: false,
           failOTP: false
         };
@@ -30,7 +31,8 @@
 
       methods: {
         handleReqOtp(type) {
-          console.log("request " + type + " OTP");
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
 
           if (this.phone.startsWith("0")) {
             this.phone = this.phone.replace("0", "+62");
@@ -42,7 +44,14 @@
               channel: type
             })
             .then((res) => {
-              this.goToStepThreeFromTwo();
+              if (res.data.code === 500) {
+                window.location = `${
+                  window.location.origin
+                }/account/register`;
+              }
+              if (res.data.code === 0) {
+                this.goToStepThreeFromTwo();
+              }
             })
             .catch((err) => {
               console.log(err);

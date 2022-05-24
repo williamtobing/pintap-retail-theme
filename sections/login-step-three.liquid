@@ -1,7 +1,7 @@
 <div class="hidden" id="OTPStepThree">
   <h1>Konfirmasi Kode Verifikasi</h1>
-  <p>Harap masukkan kode verifikasi yang kami kirim ke ${phone} melalui SMS</p>
-  <p v-if="false">Kami telah mengirimkan panggilan ke nomor ${phone}. Tidak perlu diangkat. Masukkan 6 digit terakhir dari panggilan tersebut.</p>
+  <p v-if="typeOTP === 'sms'">Harap masukkan kode verifikasi yang kami kirim ke ${phone} melalui SMS</p>
+  <p v-if="typeOTP === 'call'">Kami telah mengirimkan panggilan ke nomor ${phone}. Tidak perlu diangkat. Masukkan 6 digit terakhir dari panggilan tersebut.</p>
 
   <form @submit.prevent="handleConfirmOtp" autocomplete="off" class="input-otp">
     <input

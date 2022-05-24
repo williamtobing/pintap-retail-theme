@@ -60,6 +60,7 @@
 
           customerToken: "",
 
+          typeOTP: "",
           successOTP: false,
           failOTP: false
         };
@@ -166,37 +167,13 @@
         },
 
         handleReqOtp(type) {
-          console.log("request " + type + " OTP");
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
           let phone = this.customerData.phone;
 
           if (phone.startsWith("0")) {
             phone = phone.replace("0", "+62");
           }
-
-          axios
-            .post(`${
-              this.URL
-            }/api/v1/auth/otp/send`, {
-              phone: phone,
-              channel: type
-            })
-            .then((res) => {
-              console.log(res.data.message);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        },
-
-        handleRegisterConfirmOtp() {
-          const joinNum = [
-            this.numOne,
-            this.numTwo,
-            this.numThree,
-            this.numFour,
-            this.numFive,
-            this.numSix
-          ].join("");
 
           axios
             .post(`${
@@ -212,34 +189,61 @@
               axios
                 .post(`${
                   this.URL
-                }/api/v1/auth/otp/confirm`, {
-                  phone: this.customerData.phone,
-                  otp: joinNum
+                }/api/v1/auth/otp/send`, {
+                  phone: phone,
+                  channel: type
                 })
                 .then((res) => {
-                  localStorage.setItem("token", res
-                    .data
-                    .data
-                    .token);
-
-                  this.customerToken = res
-                    .data
-                    .data
-                    .customer_token;
-
-                  this.failOTP = false;
-                  this.successOTP = true;
-
-                  this.goToStepFourFromThree();
+                  this.goToStepThreeFromTwo();
                 })
                 .catch((err) => {
-                  this.failOTP = true;
+                  console.log(err);
                 });
             })
             .catch((err) => {
               alert("Pendaftaran gagal.");
               console.log(err);
             });
+
+        },
+
+        handleRegisterConfirmOtp() {
+          const joinNum = [
+            this.numOne,
+            this.numTwo,
+            this.numThree,
+            this.numFour,
+            this.numFive,
+            this.numSix
+          ].join("");
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/confirm`, {
+              phone: this.customerData.phone,
+              otp: joinNum
+            })
+            .then((res) => {
+              localStorage.setItem("token", res
+                .data
+                .data
+                .token);
+
+              this.customerToken = res
+                .data
+                .data
+                .customer_token;
+
+              this.failOTP = false;
+              this.successOTP = true;
+
+              this.goToStepFourFromThree();
+            })
+            .catch((err) => {
+              this.failOTP = true;
+            });
+
         },
 
         handleRegisterStore(e) {
@@ -351,6 +355,14 @@
     RegisterApp.mount("#RegisterApp");
 
   }
+
+  flatpickr(".flatdate-birth", {
+    allowInput: true,
+    nextArrow: null,
+    prevArrow: null,
+    disableMobile: true,
+    maxDate: "today"
+  });
 
   const clickEvent = (first, last) => {
     if (first.value.length) {
