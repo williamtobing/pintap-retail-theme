@@ -130,8 +130,11 @@
     <div class="field">
       <input
         name="addressDetail"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap isi Detail Alamat')"
         pattern=".*\S+.*"
         placeholder="Detail Alamat (Patokan)"
+        required
         type="text"
         v-model="storeData.addressDetail">
       <label>
