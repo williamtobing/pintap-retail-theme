@@ -14,5 +14,7 @@
     </form>
   </div>
 
+  <p class="redirection-text" v-if="directToReg">Nomor belum terdaftar. Anda akan diarahkan kehalaman membuat akun terlebih dahulu.</p>
+
   <a @click.prevent="backToStepOneFromTwo" href="#">Kembali</a>
 </div>

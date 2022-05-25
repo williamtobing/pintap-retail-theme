@@ -24,6 +24,7 @@
           numSix: null,
 
           typeOTP: "",
+          directToReg: false,
           successOTP: false,
           failOTP: false
         };
@@ -45,6 +46,8 @@
             })
             .then((res) => {
               if (res.data.code === 500) {
+                this.directToReg = true;
+
                 window.location = `${
                   window.location.origin
                 }/account/register`;
