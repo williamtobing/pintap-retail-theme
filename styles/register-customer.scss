@@ -12,6 +12,12 @@
   button {
     --border-offset: 0;
 
+    &:hover {
+      border: 1.6px solid #333333;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
     &:hover::after {
       --border-offset: 0;
     }
@@ -32,6 +38,7 @@
   button.select-otp.disabled {
     color: #d6d6d6;
     border: 1px solid #d6d6d6;
+    box-shadow: none;
   }
 
   select {
@@ -104,6 +111,7 @@
       color: white;
       background-color: #d6d6d6;
       border: 1px solid #d6d6d6;
+      box-shadow: none;
     }
 
     form.resend-form {
@@ -122,6 +130,7 @@
       button.resend-otp.disabled {
         color: #d6d6d6;
         border: 1px solid #d6d6d6;
+        box-shadow: none;
       }
     }
   }
