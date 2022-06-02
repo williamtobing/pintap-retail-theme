@@ -21,7 +21,7 @@
         "1650265813f65f45a4-0": {
           "type": "featured_collection",
           "settings": {
-            "collection": "frontpage"
+            "collection": "makanan"
           }
         },
         "1650265813f65f45a4-1": {
@@ -84,6 +84,7 @@
     },
     "collage": {
       "type": "collage",
+      "disabled": true,
       "blocks": {
         "collection-0": {
           "type": "collection",
@@ -122,6 +123,7 @@
     },
     "video": {
       "type": "video",
+      "disabled": true,
       "settings": {
         "heading": "",
         "heading_size": "h1",

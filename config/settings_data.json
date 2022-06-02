@@ -148,8 +148,8 @@
           "footer-2": {
             "type": "text",
             "settings": {
-              "heading": "Our mission",
-              "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+              "heading": "Pintap",
+              "subtext": "<p>Pintap adalah aplikasi belanja online yang dirintis sejak 2019 untuk memudahkan usaha mikro, kecil dan menengah (UMKM) berbelanja kebutuhannya.<\/p>"
             }
           }
         },
@@ -160,7 +160,7 @@
         ],
         "settings": {
           "color_scheme": "background-1",
-          "newsletter_enable": true,
+          "newsletter_enable": false,
           "newsletter_heading": "Subscribe to our emails",
           "show_social": true,
           "enable_country_selector": false,
