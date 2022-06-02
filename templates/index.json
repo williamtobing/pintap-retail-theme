@@ -46,11 +46,11 @@
       ],
       "settings": {
         "layout": "full_bleed",
-        "slide_height": "medium",
+        "slide_height": "adapt_image",
         "slider_visual": "dots",
         "auto_rotate": true,
         "change_slides_speed": 9,
-        "show_text_below": true,
+        "show_text_below": false,
         "accessibility_info": "Slideshow about our brand"
       }
     },
@@ -129,10 +129,61 @@
         "padding_bottom": 64
       }
     },
+    "1654154137607bade4": {
+      "type": "image-banner",
+      "blocks": {
+        "1654154137f5208a9a-0": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "Image banner",
+            "heading_size": "h1"
+          }
+        },
+        "1654154137f5208a9a-1": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text_style": "body"
+          }
+        },
+        "1654154137f5208a9a-2": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "1654154137f5208a9a-0",
+        "1654154137f5208a9a-1",
+        "1654154137f5208a9a-2"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/imcoco_alt_3.png",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "adapt_height_first_image": true,
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
+        "title": "Sedang Populer",
         "heading_size": "h2",
         "collection": "all",
         "products_to_show": 8,
@@ -149,57 +200,55 @@
         "padding_bottom": 36
       }
     },
-    "collage": {
-      "type": "collage",
-      "disabled": true,
+    "165415435941ff7757": {
+      "type": "image-banner",
       "blocks": {
-        "collection-0": {
-          "type": "collection",
+        "16541543590cdbc068-0": {
+          "type": "heading",
+          "disabled": true,
           "settings": {
-            "collection": ""
+            "heading": "Image banner",
+            "heading_size": "h1"
           }
         },
-        "product": {
-          "type": "product",
+        "16541543590cdbc068-1": {
+          "type": "text",
+          "disabled": true,
           "settings": {
-            "product": "",
-            "second_image": false
+            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text_style": "body"
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "16541543590cdbc068-2": {
+          "type": "buttons",
+          "disabled": true,
           "settings": {
-            "collection": ""
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "button_style_secondary_2": false
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "product",
-        "collection-1"
+        "16541543590cdbc068-0",
+        "16541543590cdbc068-1",
+        "16541543590cdbc068-2"
       ],
       "settings": {
-        "heading": "Multimedia collage",
-        "heading_size": "h2",
-        "desktop_layout": "left",
-        "mobile_layout": "collage",
+        "image": "shopify:\/\/shop_images\/rekomendasi_emina.png",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "adapt_height_first_image": true,
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
         "color_scheme": "background-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "video": {
-      "type": "video",
-      "disabled": true,
-      "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
-        "description": "",
-        "full_width": false,
-        "color_scheme": "background-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
       }
     },
     "multicolumn": {
@@ -262,9 +311,9 @@
   "order": [
     "1654154131b0b1e578",
     "165026581365268870",
+    "1654154137607bade4",
     "featured_collection",
-    "collage",
-    "video",
+    "165415435941ff7757",
     "multicolumn"
   ]
 }
