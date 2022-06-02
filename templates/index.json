@@ -18,39 +18,67 @@
     "165026581365268870": {
       "type": "collection-list",
       "blocks": {
+        "1650265813f65f45a4-1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hadiah"
+          }
+        },
+        "1650265813f65f45a4-2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ibu-anak"
+          }
+        },
+        "e3bbbdad-520b-44ff-a333-d521a225d0c5": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "kebutuhan-dapur"
+          }
+        },
         "1650265813f65f45a4-0": {
           "type": "featured_collection",
           "settings": {
             "collection": "makanan"
           }
         },
-        "1650265813f65f45a4-1": {
+        "e38353fe-783d-4a7f-9c41-757e5ae418c4": {
           "type": "featured_collection",
           "settings": {
-            "collection": "frontpage"
+            "collection": "minuman"
           }
         },
-        "1650265813f65f45a4-2": {
+        "2798a428-f20b-4479-9345-e54e95421dd2": {
           "type": "featured_collection",
           "settings": {
-            "collection": "frontpage"
+            "collection": "new-normal"
           }
         },
-        "e3bbbdad-520b-44ff-a333-d521a225d0c5": {
+        "923fdef2-414a-47d0-8872-a5f68ffd392a": {
           "type": "featured_collection",
           "settings": {
-            "collection": "frontpage"
+            "collection": "pembersih"
+          }
+        },
+        "fbc4e562-66ce-4bdf-9bcf-b47537d91a72": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "lainnya"
           }
         }
       },
       "block_order": [
-        "1650265813f65f45a4-0",
         "1650265813f65f45a4-1",
         "1650265813f65f45a4-2",
-        "e3bbbdad-520b-44ff-a333-d521a225d0c5"
+        "e3bbbdad-520b-44ff-a333-d521a225d0c5",
+        "1650265813f65f45a4-0",
+        "e38353fe-783d-4a7f-9c41-757e5ae418c4",
+        "2798a428-f20b-4479-9345-e54e95421dd2",
+        "923fdef2-414a-47d0-8872-a5f68ffd392a",
+        "fbc4e562-66ce-4bdf-9bcf-b47537d91a72"
       ],
       "settings": {
-        "title": "Collections",
+        "title": "Kategori",
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 4,
@@ -58,8 +86,8 @@
         "show_view_all": true,
         "columns_mobile": "2",
         "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "featured_collection": {
