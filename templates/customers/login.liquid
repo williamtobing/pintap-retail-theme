@@ -2,6 +2,64 @@
 {{ 'login-customer.css' | asset_url | stylesheet_tag }}
 
 <div class="customer login otp-login-app" id="OTPLoginApp">
+
+  {%- form 'customer_login', novalidate: 'novalidate' -%}
+      {%- if form.errors -%}
+        <h2 class="form__message" tabindex="-1" autofocus>
+          <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
+          <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 13 13">
+            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+            <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+            <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+          </svg>
+          {{ 'templates.contact.form.error_heading' | t }}
+        </h2>
+        {{ form.errors | default_errors }}
+      {%- endif -%}
+
+      <div class="field">        
+        <input
+          type="email"
+          name="customer[email]"
+          id="CustomerEmail"
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          {% if form.errors contains 'form' %}
+            aria-invalid="true"
+          {% endif %}
+          placeholder="{{ 'customer.login_page.email' | t }}"
+        >
+        <label for="CustomerEmail">
+          {{ 'customer.login_page.email' | t }}
+        </label>
+      </div>
+
+      {%- if form.password_needed -%}
+        <div class="field">          
+          <input
+            type="password"
+            value=""
+            name="customer[password]"
+            id="CustomerPassword"
+            autocomplete="current-password"
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+            placeholder="{{ 'customer.login_page.password' | t }}"
+          >
+          <label for="CustomerPassword">
+            {{ 'customer.login_page.password' | t }}
+          </label>
+        </div>
+      {%- endif -%}
+
+      <button>
+        {{ 'customer.login_page.sign_in' | t }}
+      </button>
+    {%- endform -%}
+
   {% section 'login-step-one' %}
   {% section 'login-step-two' %}
   {% section 'login-step-three' %}
@@ -15,13 +73,21 @@
       ],
       data() {
         return {
+          URL: "https://dev-api-mretail.pintap.id",
+
           phone: null,
+          email: null,
+          password: null,
+
           numOne: null,
           numTwo: null,
           numThree: null,
           numFour: null,
           numFive: null,
           numSix: null,
+
+          mismatchAuth: false,
+          loading: false,
 
           typeOTP: "",
           directToReg: false,
@@ -30,7 +96,59 @@
         };
       },
 
+      watch: {
+        phone() {
+          this.mismatchAuth = false;
+        },
+        password() {
+          this.mismatchAuth = false;
+        }
+      },
+
       methods: {
+        handleAuth() {
+          if (this.phone.startsWith("0")) {
+            this.phone = this.phone.replace("0", "+62");
+          }
+
+          console.log(this.phone);
+          console.log(this.password);
+
+          axios
+            .post(`${
+              this.URL
+            }/OAuth/token`, {
+              phone: this.phone,
+              password: this.password
+            })
+            .then((res) => {
+              if (res.data.code === 404) {
+                this.mismatchAuth = true;
+              }
+              if (res.data.code === 0) {
+                this.goToStepTwoFromOne();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          // axios .get(`${
+          //     this.URL
+          // }/api/v1/profile/email?phone=${
+          //     this.phone
+          // }`) .then(res => {
+          //     console.log(res
+          //       .data
+          //       .data
+          //       .email);
+
+          // }) .catch(err => {
+          //     console.log(err);
+          // });
+
+        },
+
         handleReqOtp(type) {
           console.log("Function request " + type + " OTP");
           this.typeOTP = type;
@@ -39,26 +157,28 @@
             this.phone = this.phone.replace("0", "+62");
           }
 
-          axios
-            .post("https://dev-api-mretail.pintap.id/api/v1/auth/otp/send", {
-              phone: this.phone,
-              channel: type
-            })
-            .then((res) => {
-              if (res.data.code === 500) {
-                this.directToReg = true;
+          // TO BE DELETED
+          this.goToStepThreeFromTwo();
 
-                window.location = `${
-                  window.location.origin
-                }/account/register`;
-              }
-              if (res.data.code === 0) {
-                this.goToStepThreeFromTwo();
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          // axios .post(`${
+          //     this.URL
+          // }/api/v1/auth/otp/send`, {
+          //     phone: this.phone,
+          //     channel: type
+          // }) .then((res) => {
+          //     if (res.data.code === 500) {
+          //       this.directToReg = true;
+
+          //       window.location = `${
+          //         window.location.origin
+          //       }/account/register`;
+          //     }
+          //     if (res.data.code === 0) {
+          //       this.goToStepThreeFromTwo();
+          //     }
+          // }) .catch((err) => {
+          //     console.log(err);
+          // });
         },
 
         handleResendOtp() {
@@ -66,6 +186,8 @@
         },
 
         handleConfirmOtp() {
+          this.loading = true;
+
           const joinNum = [
             this.numOne,
             this.numTwo,
@@ -75,35 +197,40 @@
             this.numSix
           ].join("");
 
-          axios
-            .post("https://dev-api-mretail.pintap.id/api/v1/auth/otp/confirm", {
-              phone: this.phone,
-              otp: joinNum
-            })
-            .then((res) => {
-              const jwt = res
-                .data
-                .data
-                .token;
+          // TO BE DELETED
+          window.location = `${
+            window.location.origin
+          }`;
 
-              const customerToken = res
-                .data
-                .data
-                .customer_token;
+          // axios .post("https://dev-api-mretail.pintap.id/api/v1/auth/otp/confirm", {
+          //     phone: this.phone,
+          //     otp: joinNum
+          // }) .then((res) => {
+          //     this.handleLoadAnimation();
+          //     this.loading = true;
 
-              localStorage.setItem("token", jwt);
+          //     const jwt = res
+          //       .data
+          //       .data
+          //       .token;
 
-              this.failOTP = false;
-              this.successOTP = true;
+          //     const customerToken = res
+          //       .data
+          //       .data
+          //       .customer_token;
 
-              window.location = `${
-                window.location.origin
-              }/account/login/multipass/${customerToken}`;
+          //     localStorage.setItem("token", jwt);
 
-            })
-            .catch((err) => {
-              this.failOTP = true;
-            });
+          //     this.failOTP = false;
+          //     this.successOTP = true;
+
+          //     window.location = `${
+          //       window.location.origin
+          //     }/account/login/multipass/${customerToken}`;
+
+          // }) .catch((err) => {
+          //     this.failOTP = true;
+          // });
         },
 
         goToStepTwoFromOne() {
