@@ -125,7 +125,6 @@
         },
 
         handleConfirmOtp() {
-
           const joinNum = [
             this.numOne,
             this.numTwo,
@@ -147,7 +146,6 @@
                 this.failOTP = true;
               }
               if (res.data.code === 0) {
-                this.loading = true;
                 this.goToStepFourFromThree();
               }
             })
