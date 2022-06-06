@@ -32,16 +32,36 @@
   border: 1px solid #d6d6d6;
   box-shadow: none;
 }
-.otp-login-app #OTPStepOne {
-  /* Firefox */
+.otp-login-app p.success-text {
+  color: #176839;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 1.5rem 0 0 0;
 }
-.otp-login-app #OTPStepOne input::-webkit-outer-spin-button,
-.otp-login-app #OTPStepOne input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.otp-login-app p.fail-text {
+  color: #a80000;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 1.5rem 0 0 0;
 }
-.otp-login-app #OTPStepOne input[type=number] {
-  -moz-appearance: textfield;
+.otp-login-app #OTPStepOne input.error {
+  border: 1px solid #a80000;
+}
+.otp-login-app #OTPStepOne hr {
+  margin: 2rem 0;
+}
+.otp-login-app #OTPStepOne button[type=submit] {
+  margin: 1.5rem 0;
+}
+.otp-login-app #OTPStepOne p.fail-auth {
+  color: #a80000;
+  font-size: 14px;
+}
+.otp-login-app #OTPStepOne a.forget-password {
+  color: #2a3588;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
 }
 .otp-login-app #OTPStepTwo .select-field {
   margin-top: 4rem;
@@ -52,7 +72,7 @@
 .otp-login-app #OTPStepTwo p.redirection-text {
   color: #a80000;
 }
-.otp-login-app #OTPStepThree .input-otp input {
+.otp-login-app #OTPStepThree form input {
   margin: 4px;
   height: 40px;
   width: 40px;
@@ -64,26 +84,14 @@
   border: 1px solid #5c5c5c;
 }
 @media screen and (min-width: 768px) {
-  .otp-login-app #OTPStepThree .input-otp input {
+  .otp-login-app #OTPStepThree form input {
     margin: 6px;
     height: 48px;
     width: 48px;
   }
 }
-.otp-login-app #OTPStepThree .input-otp input:focus {
+.otp-login-app #OTPStepThree form input:focus {
   outline: none;
-}
-.otp-login-app #OTPStepThree p.success-text {
-  color: #176839;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 1.5rem 0 0 0;
-}
-.otp-login-app #OTPStepThree p.fail-text {
-  color: #a80000;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 1.5rem 0 0 0;
 }
 .otp-login-app #OTPStepThree button.confirm-otp {
   width: 240px;
@@ -115,4 +123,28 @@
   color: #d6d6d6;
   border: 1px solid #d6d6d6;
   box-shadow: none;
+}
+.otp-login-app #OTPStepFour button:focus {
+  background-color: #a7afec;
+  border: 1px solid #a7afec;
+}
+.otp-login-app span#load-animate::after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+}
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    color: white;
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%, 100% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
+  }
 }

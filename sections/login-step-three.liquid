@@ -52,7 +52,6 @@
       type="text"
       v-model="numSix">
 
-    <p class="success-text" v-if="successOTP">Verifikasi berhasil. Harap tunggu sebentar...</p>
     <p class="fail-text" v-if="failOTP">Verifikasi gagal. Pastikan kode yang dimasukkan benar.</p>
 
     <br>
@@ -62,15 +61,14 @@
       type="button"
       v-if="numOne === null || numTwo === null || numThree === null || numFour === null
         || numFive === null || numSix === null || numOne === '' || numTwo === '' ||
-        numThree === '' || numFour === '' || numFive === '' || numSix === '' ||
-        successOTP">Konfirmasi</button>
+        numThree === '' || numFour === '' || numFive === '' || numSix === ''">Konfirmasi</button>
     <button
       class="confirm-otp"
       type="submit"
       v-if="numOne !== null && numTwo !== null && numThree !== null && numFour !== null
         && numFive !== null && numSix !== null && numOne !== '' && numTwo !== '' &&
-        numThree !== '' && numFour !== '' && numFive !== '' && numSix !== '' &&
-        !successOTP">Konfirmasi</button>
+        numThree !== '' && numFour !== '' && numFive !== '' && numSix !== ''">Konfirmasi</button>
+
   </form>
 
   <form @submit.prevent="handleReqOtp('sms')" class="resend-form">

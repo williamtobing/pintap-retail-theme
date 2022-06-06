@@ -1,0 +1,17 @@
+<div class="hidden" id="OTPStepFour">
+  {% form 'customer_login' %}
+    <input :value="email" class="hidden" name="customer[email]" type="email">
+    <input
+      :value="password"
+      class="hidden"
+      name="customer[password]"
+      type="password">
+
+    <p class="success-text">Verifikasi berhasil.</p>
+
+    <button @click="loading = true" type="submit">
+      <span v-if="!loading">Lanjut untuk belanja</span>
+      <span id="load-animate" v-if="loading">Tunggu sebentar</span>
+    </button>
+  {% endform %}
+</div>

@@ -1,10 +1,11 @@
 <div id="OTPStepOne">
   <h1>Masuk dengan No HP</h1>
 
-  <form @submit.prevent="goToStepTwoFromOne">
+  <form @submit.prevent="handleAuth">
     <div class="field">
       <input
-        id="CustomerPhone"
+        :class="[mismatchAuth ? 'error' : '']"
+        id="VPhone"
         oninput="this.setCustomValidity('')"
         oninvalid="this.setCustomValidity('Harap isi No HP')"
         onkeypress="restrictKey(event)"
@@ -18,7 +19,27 @@
       </label>
     </div>
 
+    <div class="field">
+      <input
+        :class="[mismatchAuth ? 'error' : '']"
+        id="VPassword"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap masukkan Kata Sandi')"
+        placeholder="Kata Sandi"
+        required
+        type="password"
+        v-model="password" />
+      <label for="CustomerPassword">
+        Kata Sandi
+      </label>
+    </div>
+
+    <p class="fail-auth" v-if="mismatchAuth">No HP atau Kata Sandi salah. Silakan coba lagi.</p>
+    <a class="forget-password" href="https://williamtobing.com">
+      Lupa kata sandi?
+    </a>
     <button type="submit">Lanjut</button>
+    <hr/>
   </form>
 
   <a href="{{ routes.account_register_url }}">
