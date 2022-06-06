@@ -109,11 +109,8 @@
             .then((res) => {
               if (res.data.code === 500) {
                 this.directToReg = true;
-
-                window.location = `${
-                  window.location.origin
-                }/account/register`;
               }
+
               if (res.data.code === 0) {
                 this.goToStepThreeFromTwo();
               }
@@ -128,6 +125,7 @@
         },
 
         handleConfirmOtp() {
+
           const joinNum = [
             this.numOne,
             this.numTwo,
@@ -149,6 +147,7 @@
                 this.failOTP = true;
               }
               if (res.data.code === 0) {
+                this.loading = true;
                 this.goToStepFourFromThree();
               }
             })
