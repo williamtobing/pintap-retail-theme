@@ -38,6 +38,18 @@
 .register-app select {
   font-family: "Nunito", sans-serif;
 }
+.register-app p.success-text {
+  color: #176839;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 1.5rem 0 0 0;
+}
+.register-app p.fail-text {
+  color: #a80000;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 1.5rem 0 0 0;
+}
 .register-app #RegisterStepOne {
   max-width: 47.8rem !important;
   margin: 0 auto;
@@ -68,18 +80,6 @@
 }
 .register-app #RegisterStepThree .input-otp input:focus {
   outline: none;
-}
-.register-app #RegisterStepThree p.success-text {
-  color: #176839;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 1.5rem 0 0 0;
-}
-.register-app #RegisterStepThree p.fail-text {
-  color: #a80000;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 1.5rem 0 0 0;
 }
 .register-app #RegisterStepThree button.confirm-otp {
   width: 240px;
@@ -182,6 +182,40 @@
 }
 .register-app #RegisterStepFour form .image-field label input[type=file] {
   display: none;
+}
+.register-app #RegisterStepFour form button {
+  width: 184px;
+}
+.register-app #RegisterStepFour form button:hover {
+  border: 1px solid #333333;
+}
+.register-app #RegisterStepFour form button:focus {
+  background-color: #a7afec;
+  border: 1px solid #a7afec;
+}
+.register-app #RegisterStepFive button:focus {
+  background-color: #a7afec;
+  border: 1px solid #a7afec;
+}
+.register-app span#load-animate::after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+}
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    color: white;
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%, 100% {
+    text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
+  }
 }
 
 /* flatpickr style override */

@@ -6,6 +6,7 @@
   {% section 'register-step-two' %}
   {% section 'register-step-three' %}
   {% section 'register-step-four' %}
+  {% section 'register-step-five' %}
 </div>
 
 <script>
@@ -22,6 +23,7 @@
             fullname: null,
             phone: null,
             email: null,
+            password: null,
             birthdate: null,
             gender: null
           },
@@ -46,6 +48,8 @@
           numFour: null,
           numFive: null,
           numSix: null,
+
+          loading: false,
 
           provinceApi: null,
           cityApi: null,
@@ -181,6 +185,7 @@
             }/api/v1/auth/register`, {
               name: this.customerData.fullname,
               phone: this.customerData.phone,
+              password: this.customerData.password,
               email: this.customerData.email,
               birthdate: this.customerData.birthdate,
               gender: this.customerData.gender
@@ -204,7 +209,6 @@
               alert("Pendaftaran gagal.");
               console.log(err);
             });
-
         },
 
         handleRegisterConfirmOtp() {
@@ -243,7 +247,6 @@
             .catch((err) => {
               this.failOTP = true;
             });
-
         },
 
         handleRegisterStore(e) {
@@ -272,11 +275,7 @@
               }
             })
             .then((res) => {
-              window.location = `${
-                window.location.origin
-              }/account/login/multipass/${
-                this.customerToken
-              }`;
+              this.goToStepFiveFromFour();
             })
             .catch((err) => {
               console.log(err);
@@ -316,6 +315,16 @@
             eStepThree.classList.add("hidden");
             eStepFour.classList.remove("hidden");
             eStepFour.classList.add("block");
+          }
+        },
+
+        goToStepFiveFromFour() {
+          const eStepFour = document.querySelector("#RegisterStepFour");
+          const eStepFive = document.querySelector("#RegisterStepFive");
+          if (eStepFive.classList.contains("hidden")) {
+            eStepFour.classList.add("hidden");
+            eStepFive.classList.remove("hidden");
+            eStepFive.classList.add("block");
           }
         },
 
