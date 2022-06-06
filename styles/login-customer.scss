@@ -39,16 +39,43 @@
     box-shadow: none;
   }
 
+  p.success-text {
+    color: #176839;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 1.5rem 0 0 0;
+  }
+
+  p.fail-text {
+    color: #a80000;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 1.5rem 0 0 0;
+  }
+
   #OTPStepOne {
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+    input.error {
+      border: 1px solid #a80000;
     }
 
-    /* Firefox */
-    input[type='number'] {
-      -moz-appearance: textfield;
+    hr {
+      margin: 2rem 0;
+    }
+
+    button[type='submit'] {
+      margin: 1.5rem 0;
+    }
+
+    p.fail-auth {
+      color: #a80000;
+      font-size: 14px;
+    }
+
+    a.forget-password {
+      color: #2a3588;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
     }
   }
 
@@ -66,7 +93,7 @@
   }
 
   #OTPStepThree {
-    .input-otp {
+    form {
       input {
         margin: 4px;
         height: 40px;
@@ -88,20 +115,6 @@
           outline: none;
         }
       }
-    }
-
-    p.success-text {
-      color: #176839;
-      font-size: 18px;
-      font-weight: 600;
-      margin: 1.5rem 0 0 0;
-    }
-
-    p.fail-text {
-      color: #a80000;
-      font-size: 18px;
-      font-weight: 600;
-      margin: 1.5rem 0 0 0;
     }
 
     button.confirm-otp {
@@ -137,6 +150,41 @@
         color: #d6d6d6;
         border: 1px solid #d6d6d6;
         box-shadow: none;
+      }
+    }
+  }
+
+  #OTPStepFour {
+    button {
+      &:focus {
+        background-color: #a7afec;
+        border: 1px solid #a7afec;
+      }
+    }
+  }
+
+  span#load-animate {
+    &::after {
+      content: ' .';
+      animation: dots 1s steps(5, end) infinite;
+    }
+
+    @keyframes dots {
+      0%,
+      20% {
+        color: rgba(0, 0, 0, 0);
+        text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+      }
+      40% {
+        color: white;
+        text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+      }
+      60% {
+        text-shadow: 0.25em 0 0 white, 0.5em 0 0 rgba(0, 0, 0, 0);
+      }
+      80%,
+      100% {
+        text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
       }
     }
   }

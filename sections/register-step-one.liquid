@@ -30,15 +30,33 @@
         No HP
       </label>
     </div>
+
+    <div class="field">
+      <input
+        id="CustomerPassword"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap masukkan Kata Sandi')"
+        placeholder="Kata Sandi"
+        required
+        type="password"
+        v-model="customerData.password" />
+      <label for="CustomerPassword">
+        Kata Sandi
+      </label>
+    </div>
+
     <div class="field">
       <input
         name="email"
-        pattern=".*\S+.*"
-        placeholder="Email (opsional)"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity('Harap masukkan Email')"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        placeholder="Email"
+        required
         type="text"
         v-model="customerData.email">
       <label>
-        Email (opsional)
+        Email
       </label>
     </div>
     <div class="field">

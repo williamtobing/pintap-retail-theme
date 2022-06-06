@@ -5,6 +5,7 @@
   {% section 'login-step-one' %}
   {% section 'login-step-two' %}
   {% section 'login-step-three' %}
+  {% section 'login-step-four' %}
 </div>
 
 <script>
@@ -15,7 +16,12 @@
       ],
       data() {
         return {
+          URL: "https://dev-api-mretail.pintap.id",
+
           phone: null,
+          email: null,
+          password: null,
+
           numOne: null,
           numTwo: null,
           numThree: null,
@@ -23,14 +29,68 @@
           numFive: null,
           numSix: null,
 
+          mismatchAuth: false,
+          loading: false,
+
           typeOTP: "",
           directToReg: false,
-          successOTP: false,
           failOTP: false
         };
       },
 
+      watch: {
+        phone() {
+          this.mismatchAuth = false;
+        },
+        password() {
+          this.mismatchAuth = false;
+        }
+      },
+
       methods: {
+        handleAuth() {
+          if (this.phone.startsWith("0")) {
+            this.phone = this.phone.replace("0", "+62");
+          }
+
+          axios
+            .post(`${
+              this.URL
+            }/OAuth/token`, {
+              phone: this.phone,
+              password: this.password
+            })
+            .then((res) => {
+              if (res.data.code === 404) {
+                this.mismatchAuth = true;
+              }
+
+              if (res.data.code === 0) {
+                axios
+                  .get(`${
+                    this.URL
+                  }/api/v1/profile/email?phone=${
+                    this.phone
+                  }`)
+                  .then((res) => {
+                    if (res.data.code === 0) {
+                      this.email = res
+                        .data
+                        .data
+                        .email;
+                    }
+                    this.goToStepTwoFromOne();
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
         handleReqOtp(type) {
           console.log("Function request " + type + " OTP");
           this.typeOTP = type;
@@ -40,18 +100,17 @@
           }
 
           axios
-            .post("https://dev-api-mretail.pintap.id/api/v1/auth/otp/send", {
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/send`, {
               phone: this.phone,
               channel: type
             })
             .then((res) => {
               if (res.data.code === 500) {
                 this.directToReg = true;
-
-                window.location = `${
-                  window.location.origin
-                }/account/register`;
               }
+
               if (res.data.code === 0) {
                 this.goToStepThreeFromTwo();
               }
@@ -76,33 +135,23 @@
           ].join("");
 
           axios
-            .post("https://dev-api-mretail.pintap.id/api/v1/auth/otp/confirm", {
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/confirm`, {
               phone: this.phone,
               otp: joinNum
             })
             .then((res) => {
-              const jwt = res
-                .data
-                .data
-                .token;
-
-              const customerToken = res
-                .data
-                .data
-                .customer_token;
-
-              localStorage.setItem("token", jwt);
-
-              this.failOTP = false;
-              this.successOTP = true;
-
-              window.location = `${
-                window.location.origin
-              }/account/login/multipass/${customerToken}`;
-
+              if (res.data.code === 401) {
+                this.failOTP = true;
+              }
+              if (res.data.code === 0) {
+                this.goToStepFourFromThree();
+              }
             })
             .catch((err) => {
               this.failOTP = true;
+              console.log(err);
             });
         },
 
@@ -123,6 +172,16 @@
             eStepTwo.classList.add("hidden");
             eStepThree.classList.remove("hidden");
             eStepThree.classList.add("block");
+          }
+        },
+
+        goToStepFourFromThree() {
+          const eStepThree = document.querySelector("#OTPStepThree");
+          const eStepFour = document.querySelector("#OTPStepFour");
+          if (eStepFour.classList.contains("hidden")) {
+            eStepThree.classList.add("hidden");
+            eStepFour.classList.remove("hidden");
+            eStepFour.classList.add("block");
           }
         },
 
