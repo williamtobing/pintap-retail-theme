@@ -35,7 +35,8 @@
       <input
         id="CustomerPassword"
         oninput="this.setCustomValidity('')"
-        oninvalid="this.setCustomValidity('Harap masukkan Kata Sandi')"
+        oninvalid="this.setCustomValidity(`Harap isi kata sandi, minimal 8 karakter.`)"
+        pattern=".{8,}"
         placeholder="Kata Sandi"
         required
         type="password"

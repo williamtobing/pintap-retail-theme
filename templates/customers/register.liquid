@@ -66,7 +66,9 @@
 
           typeOTP: "",
           successOTP: false,
-          failOTP: false
+          failOTP: false,
+
+          redirectCustomer: null
         };
       },
 
@@ -275,7 +277,14 @@
               }
             })
             .then((res) => {
-              this.goToStepFiveFromFour();
+              if (res.data.code === 0) {
+                this.redirectCustomer = true;
+                this.goToStepFiveFromFour();
+              }
+
+              if (res.data.code === 400) {
+                this.redirectCustomer = false;
+              }
             })
             .catch((err) => {
               console.log(err);
