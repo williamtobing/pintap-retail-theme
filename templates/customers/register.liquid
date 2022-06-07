@@ -68,7 +68,7 @@
           successOTP: false,
           failOTP: false,
 
-          redirectCustomer: null
+          checkCustomer: false
         };
       },
 
@@ -169,7 +169,28 @@
               .replace("0", "+62");
           }
 
-          this.goToStepTwoFromOne();
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/profile/email?phone=${
+              this.customerData.phone
+            }`)
+            .then((res) => {
+              if (res.data.code === 404) {
+                this.goToStepTwoFromOne();
+              }
+
+              if (res.data.code === 0) {
+                this.checkCustomer = true;
+
+                window.location = `${
+                  window.location.origin
+                }/account/login`;
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         },
 
         handleReqOtp(type) {

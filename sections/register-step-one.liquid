@@ -1,5 +1,8 @@
 <div id="RegisterStepOne">
   <h1>Buat akun</h1>
+
+  <p class="fail-text" v-if="checkCustomer">Anda sudah terdaftar. Silahkan Login untuk masuk.</p>
+
   <form @submit.prevent="handleTempDataCustomer">
     <div class="field">
       <input
