@@ -33,7 +33,7 @@
         Kata Sandi
       </label>
     </div>
-
+    <p class="fail-text" v-if="checkCustomer">Anda belum memiliki akun. Silahkan daftar terlebih dahulu.</p>
     <p class="fail-auth" v-if="mismatchAuth">No HP atau Kata Sandi salah. Silakan coba lagi.</p>
     <a class="forget-password" href="#">
       Lupa kata sandi?
