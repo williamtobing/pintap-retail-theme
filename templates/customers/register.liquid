@@ -299,12 +299,11 @@
             })
             .then((res) => {
               if (res.data.code === 0) {
-                this.redirectCustomer = true;
                 this.goToStepFiveFromFour();
               }
 
               if (res.data.code === 400) {
-                this.redirectCustomer = false;
+                console.log(res);
               }
             })
             .catch((err) => {
@@ -319,6 +318,7 @@
         /* END OF HANDLE REGION */
 
         goToStepTwoFromOne() {
+          window.scrollTo(0, 0);
           const eStepOne = document.querySelector("#RegisterStepOne");
           const eStepTwo = document.querySelector("#RegisterStepTwo");
           if (eStepTwo.classList.contains("hidden")) {
@@ -329,6 +329,7 @@
         },
 
         goToStepThreeFromTwo() {
+          window.scrollTo(0, 0);
           const eStepTwo = document.querySelector("#RegisterStepTwo");
           const eStepThree = document.querySelector("#RegisterStepThree");
           if (eStepThree.classList.contains("hidden")) {
@@ -339,6 +340,7 @@
         },
 
         goToStepFourFromThree() {
+          window.scrollTo(0, 0);
           const eStepThree = document.querySelector("#RegisterStepThree");
           const eStepFour = document.querySelector("#RegisterStepFour");
           if (eStepFour.classList.contains("hidden")) {
@@ -349,6 +351,7 @@
         },
 
         goToStepFiveFromFour() {
+          window.scrollTo(0, 0);
           const eStepFour = document.querySelector("#RegisterStepFour");
           const eStepFive = document.querySelector("#RegisterStepFive");
           if (eStepFive.classList.contains("hidden")) {
@@ -359,6 +362,7 @@
         },
 
         backToStepOneFromTwo() {
+          window.scrollTo(0, 0);
           const eStepOne = document.querySelector("#RegisterStepOne");
           const eStepTwo = document.querySelector("#RegisterStepTwo");
           if (eStepOne.classList.contains("hidden")) {
@@ -369,6 +373,7 @@
         },
 
         backToStepTwoFromThree() {
+          window.scrollTo(0, 0);
           const eStepTwo = document.querySelector("#RegisterStepTwo");
           const eStepThree = document.querySelector("#RegisterStepThree");
           if (eStepTwo.classList.contains("hidden")) {
@@ -379,6 +384,7 @@
         },
 
         backToStepThreeFromFour() {
+          window.scrollTo(0, 0);
           const eStepThree = document.querySelector("#RegisterStepThree");
           const eStepFour = document.querySelector("#RegisterStepFour");
           if (eStepThree.classList.contains("hidden")) {

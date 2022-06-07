@@ -10,8 +10,7 @@
       class="hidden"
       name="customer[password]"
       type="password">
-    <p class="success-text" v-if="redirectCustomer">Pendaftaran berhasil.</p>
-    <p class="fail-text" v-else>Pendaftaran gagal.</p>
+    <p class="success-text">Pendaftaran berhasil.</p>
     <button @click="loading = true" type="submit">
       <span v-if="!loading">Lanjut untuk belanja</span>
       <span id="load-animate" v-if="loading">Tunggu sebentar</span>
