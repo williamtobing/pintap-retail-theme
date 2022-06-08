@@ -1,15 +1,15 @@
 <div class="hidden" id="OTPStepFour">
-  {%- form 'customer_login', novalidate: 'novalidate' -%}
+  {% form 'customer_login', return_to: routes.root_url %}
     <input :value="email" class="hidden" name="customer[email]" type="email">
     <input
       :value="password"
       class="hidden"
       name="customer[password]"
       type="password">
-    <p class="success-text">Verifikasi berhasil.</p>
+    <p class="success-text">Login berhasil.</p>
     <button @click="loading = true" type="submit">
-      <span v-if="!loading">Lanjut untuk belanja</span>
+      <span v-if="!loading">Mulai berbelanja</span>
       <span id="load-animate" v-if="loading">Tunggu sebentar</span>
     </button>
-  {%- endform -%}
+  {% endform %}
 </div>

@@ -3,8 +3,6 @@
 
 <div class="customer login otp-login-app" id="OTPLoginApp">
   {% section 'login-step-one' %}
-  {% section 'login-step-two' %}
-  {% section 'login-step-three' %}
   {% section 'login-step-four' %}
 </div>
 
@@ -22,19 +20,8 @@
           email: null,
           password: null,
 
-          numOne: null,
-          numTwo: null,
-          numThree: null,
-          numFour: null,
-          numFive: null,
-          numSix: null,
-
           mismatchAuth: false,
           loading: false,
-
-          typeOTP: "",
-          directToReg: false,
-          failOTP: false,
 
           checkCustomer: false
         };
@@ -63,8 +50,14 @@
               password: this.password
             })
             .then((res) => {
-              if (res.data.code === 404) {
+              if (res.data.message === `password doesn't match with username`) {
                 this.mismatchAuth = true;
+              }
+
+              if (res.data.message === `username not found`) {
+                this.checkCustomer = true;
+                this.phone = null;
+                this.password = null;
               }
 
               if (res.data.code === 0) {
@@ -86,7 +79,7 @@
                         .data
                         .data
                         .email;
-                      this.goToStepTwoFromOne();
+                      this.goToStepFourFromOne();
                     }
                   })
                   .catch((err) => {
@@ -99,122 +92,14 @@
             });
         },
 
-        handleReqOtp(type) {
-          console.log("Function request " + type + " OTP");
-          this.typeOTP = type;
-
-          if (this.phone.startsWith("0")) {
-            this.phone = this.phone.replace("0", "+62");
-          }
-
-          axios
-            .post(`${
-              this.URL
-            }/api/v1/auth/otp/send`, {
-              phone: this.phone,
-              channel: type
-            })
-            .then((res) => {
-              if (res.data.code === 500) {
-                this.directToReg = true;
-              }
-
-              if (res.data.code === 0) {
-                this.goToStepThreeFromTwo();
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        },
-
-        handleResendOtp() {
-          console.log("soon!");
-        },
-
-        handleConfirmOtp() {
-          const joinNum = [
-            this.numOne,
-            this.numTwo,
-            this.numThree,
-            this.numFour,
-            this.numFive,
-            this.numSix
-          ].join("");
-
-          axios
-            .post(`${
-              this.URL
-            }/api/v1/auth/otp/confirm`, {
-              phone: this.phone,
-              otp: joinNum
-            })
-            .then((res) => {
-              if (res.data.code === 401) {
-                this.failOTP = true;
-              }
-              if (res.data.code === 0) {
-                this.goToStepFourFromThree();
-              }
-            })
-            .catch((err) => {
-              this.failOTP = true;
-              console.log(err);
-            });
-        },
-
-        goToStepTwoFromOne() {
+        goToStepFourFromOne() {
           window.scrollTo(0, 0);
           const eStepOne = document.querySelector("#OTPStepOne");
-          const eStepTwo = document.querySelector("#OTPStepTwo");
-          if (eStepTwo.classList.contains("hidden")) {
-            eStepOne.classList.add("hidden");
-            eStepTwo.classList.remove("hidden");
-            eStepTwo.classList.add("block");
-          }
-        },
-
-        goToStepThreeFromTwo() {
-          window.scrollTo(0, 0);
-          const eStepTwo = document.querySelector("#OTPStepTwo");
-          const eStepThree = document.querySelector("#OTPStepThree");
-          if (eStepThree.classList.contains("hidden")) {
-            eStepTwo.classList.add("hidden");
-            eStepThree.classList.remove("hidden");
-            eStepThree.classList.add("block");
-          }
-        },
-
-        goToStepFourFromThree() {
-          window.scrollTo(0, 0);
-          const eStepThree = document.querySelector("#OTPStepThree");
           const eStepFour = document.querySelector("#OTPStepFour");
           if (eStepFour.classList.contains("hidden")) {
-            eStepThree.classList.add("hidden");
+            eStepOne.classList.add("hidden");
             eStepFour.classList.remove("hidden");
             eStepFour.classList.add("block");
-          }
-        },
-
-        backToStepOneFromTwo() {
-          window.scrollTo(0, 0);
-          const eStepOne = document.querySelector("#OTPStepOne");
-          const eStepTwo = document.querySelector("#OTPStepTwo");
-          if (eStepOne.classList.contains("hidden")) {
-            eStepTwo.classList.add("hidden");
-            eStepOne.classList.remove("hidden");
-            eStepOne.classList.add("block");
-          }
-        },
-
-        backToStepTwoFromThree() {
-          window.scrollTo(0, 0);
-          const eStepTwo = document.querySelector("#OTPStepTwo");
-          const eStepThree = document.querySelector("#OTPStepThree");
-          if (eStepTwo.classList.contains("hidden")) {
-            eStepThree.classList.add("hidden");
-            eStepTwo.classList.remove("hidden");
-            eStepTwo.classList.add("block");
           }
         }
       }

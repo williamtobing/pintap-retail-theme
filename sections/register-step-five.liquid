@@ -1,5 +1,5 @@
 <div class="hidden" id="RegisterStepFive">
-  {%- form 'customer_login', novalidate: 'novalidate' -%}
+  {% form 'customer_login', return_to: routes.root_url %}
     <input
       :value="customerData.email"
       class="hidden"
@@ -12,8 +12,8 @@
       type="password">
     <p class="success-text">Pendaftaran berhasil.</p>
     <button @click="loading = true" type="submit">
-      <span v-if="!loading">Lanjut untuk belanja</span>
+      <span v-if="!loading">Mulai berbelanja</span>
       <span id="load-animate" v-if="loading">Tunggu sebentar</span>
     </button>
-  {%- endform -%}
+  {% endform %}
 </div>
