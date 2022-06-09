@@ -43,42 +43,37 @@
           }
 
           axios
-            .post(`${
+            .get(`${
               this.URL
-            }/OAuth/token`, {
-              phone: this.phone,
-              password: this.password
-            })
+            }/api/v1/profile/email?phone=${
+              this.phone
+            }`)
             .then((res) => {
-              if (res.data.message === `password doesn't match with username`) {
-                this.mismatchAuth = true;
-              }
-
-              if (res.data.message === `username not found`) {
+              if (res.data.code === 404) {
                 this.checkCustomer = true;
                 this.phone = null;
                 this.password = null;
               }
 
               if (res.data.code === 0) {
+                this.email = res
+                  .data
+                  .data
+                  .email;
+
                 axios
-                  .get(`${
+                  .post(`${
                     this.URL
-                  }/api/v1/profile/email?phone=${
-                    this.phone
-                  }`)
+                  }/OAuth/token`, {
+                    phone: this.phone,
+                    password: this.password
+                  })
                   .then((res) => {
                     if (res.data.code === 404) {
-                      this.checkCustomer = true;
-                      this.phone = null;
-                      this.password = null;
+                      this.mismatchAuth = true;
                     }
 
                     if (res.data.code === 0) {
-                      this.email = res
-                        .data
-                        .data
-                        .email;
                       this.goToStepFourFromOne();
                     }
                   })
