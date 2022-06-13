@@ -103,7 +103,7 @@
           "announcement-bar-0": {
             "type": "announcement",
             "settings": {
-              "text": "Gratis ongkir untuk transaksi di atas Rp200ribu!",
+              "text": "Isi survei dan dapatkan keuntungannya",
               "color_scheme": "accent-1",
               "link": ""
             }
@@ -140,6 +140,7 @@
           },
           "footer-1": {
             "type": "link_list",
+            "disabled": true,
             "settings": {
               "heading": "Info",
               "menu": "footer"
@@ -187,7 +188,15 @@
     },
     "content_for_index": [
 
-    ]
+    ],
+    "blocks": {
+      "6897675550240258559": {
+        "type": "shopify:\/\/apps\/promolayer\/blocks\/app-embed\/e4a9128f-b151-4feb-ad9e-ef8fbb63bf07",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    }
   },
   "presets": {
     "Default": {
