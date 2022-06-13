@@ -5,72 +5,6 @@
   {% section 'login-step-one' %}
   {% section 'login-step-psw' %}
   {% section 'login-step-four' %}
-
-  <h1 id="recover" tabindex="-1">
-    {{ 'customer.recover_password.title' | t }}
-  </h1>
-  <div>
-    <p>
-      {{ 'customer.recover_password.subtext' | t }}
-    </p>
-
-    {%- form 'recover_customer_password' -%}
-      {% assign recover_success = form.posted_successfully? %}
-      <div class="field">
-        <input type="email" value="" name="email" id="RecoverEmail" autocorrect="off" autocapitalize="off" autocomplete="email" {% if form.errors %} aria-invalid="true" aria-describedby="RecoverEmail-email-error" autofocus {% endif %} placeholder="{{ 'customer.login_page.email' | t }}">
-        <label for="RecoverEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
-      </div>
-      {%- if form.errors -%}
-        <small class="form__message" id="RecoverEmail-email-error">
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="presentation"
-            viewbox="0 0 13 13">
-            <circle cx="6.5" cy="6.50049" r="5.5" stroke-width="2" stroke="white" />
-            <circle
-              cx="6.5"
-              cy="6.5"
-              fill="#EB001B"
-              r="5.5"
-              stroke-width="0.7"
-              stroke="#EB001B" />
-            <path
-              d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076
-                9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091
-                8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982
-                9.37267 6.12061 9.66091 6.50076 9.66091Z"
-              fill="white" />
-            <path
-              d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296
-                7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617
-                3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317
-                9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982
-                8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z"
-              fill="white"
-              stroke-width="0.7"
-              stroke="#EB001B" />
-          </svg>
-          {{ form.errors.messages['form'] }}
-        </small>
-      {%- endif -%}
-
-      <button>
-        {{ 'customer.login_page.submit' | t }}
-      </button>
-
-      <a href="#login">
-        {{ 'customer.login_page.cancel' | t }}
-      </a>
-    {%- endform -%}
-  </div>
-
-  <a href="#recover">
-    {{ 'customer.login_page.forgot_password' | t }}
-  </a>
-
 </div>
 
 <script>
@@ -81,7 +15,7 @@
       ],
       data() {
         return {
-          URL: "https://dev-api-mretail.pintap.id",
+          URL: "https://api.mretail.pintap.id",
 
           phone: null,
           email: null,
@@ -109,46 +43,56 @@
             this.phone = this.phone.replace("0", "+62");
           }
 
-          // axios .get(`${
-          //     this.URL
-          // }/api/v1/profile/email?phone=${
-          //     this.phone
-          // }`) .then((res) => {
-          //     if (res.data.code === 404) {
-          //       this.checkCustomer = true;
-          //       this.phone = null;
-          //       this.password = null;
-          //     }
-
-          //     if (res.data.code === 0) {
-          //       this.email = res
-          //         .data
-          //         .data
-          //         .email;
-
           axios
-            .post(`${
+            .get(`${
               this.URL
-            }/OAuth/token`, {
-              phone: this.phone,
-              password: this.password
-            })
+            }/api/v1/profile/email?phone=${
+              this.phone
+            }`)
             .then((res) => {
               if (res.data.code === 404) {
-                this.mismatchAuth = true;
+                this.checkCustomer = true;
+                this.phone = null;
+                this.password = null;
               }
 
               if (res.data.code === 0) {
-                this.goToStepFourFromOne();
+                this.email = res
+                  .data
+                  .data
+                  .email;
+
+                axios
+                  .post(`${
+                    this.URL
+                  }/OAuth/token`, {
+                    phone: this.phone,
+                    password: this.password
+                  })
+                  .then((res) => {
+                    if (res.data.code === 404) {
+                      this.mismatchAuth = true;
+                    }
+
+                    if (
+                      res.data.code === 0 &&
+                      res.data.message === `shopify error undefined`
+                    ) {
+                      alert(res.data.message);
+                    }
+
+                    if (res.data.code === 0 && res.data.message === "") {
+                      this.goToStepFourFromOne();
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
               }
             })
             .catch((err) => {
               console.log(err);
             });
-          //     }
-          // }) .catch((err) => {
-          //     console.log(err);
-          // });
         },
 
         goToStepFourFromOne() {
@@ -159,6 +103,28 @@
             eStepOne.classList.add("hidden");
             eStepFour.classList.remove("hidden");
             eStepFour.classList.add("block");
+          }
+        },
+
+        goToStepPswFromOne() {
+          window.scrollTo(0, 0);
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepPsw = document.querySelector("#OTPStepPsw");
+          if (eStepPsw.classList.contains("hidden")) {
+            eStepOne.classList.add("hidden");
+            eStepPsw.classList.remove("hidden");
+            eStepPsw.classList.add("block");
+          }
+        },
+
+        backToStepOneFromPsw() {
+          window.scrollTo(0, 0);
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepPsw = document.querySelector("#OTPStepPsw");
+          if (eStepOne.classList.contains("hidden")) {
+            eStepPsw.classList.add("hidden");
+            eStepOne.classList.remove("hidden");
+            eStepOne.classList.add("block");
           }
         }
       }
