@@ -175,6 +175,7 @@
       "main-password-header": {
         "type": "main-password-header",
         "settings": {
+          "logo": "shopify:\/\/shop_images\/Logo_Pintap_svg-01_3.png",
           "logo_max_width": 100,
           "color_scheme": "background-1"
         }
@@ -188,15 +189,7 @@
     },
     "content_for_index": [
 
-    ],
-    "blocks": {
-      "6897675550240258559": {
-        "type": "shopify:\/\/apps\/promolayer\/blocks\/app-embed\/e4a9128f-b151-4feb-ad9e-ef8fbb63bf07",
-        "disabled": false,
-        "settings": {
-        }
-      }
-    }
+    ]
   },
   "presets": {
     "Default": {
