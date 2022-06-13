@@ -4,7 +4,7 @@
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 10000; /* Sit on top */
-  padding-top: 60px; /* Location of the box */
+  padding-top: 240px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -13,11 +13,15 @@
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 
+  @media screen and (min-width: 768px) {
+    padding-top: 60px;
+  }
+
   /* Modal Content */
   .modal-content {
     position: relative;
     margin: auto;
-    max-width: 60vw;
+    max-width: 96vw;
     padding: 0;
     border-radius: 12px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -26,6 +30,10 @@
     animation-name: animatetop;
     animation-duration: 0.4s;
     overflow: hidden;
+
+    @media screen and (min-width: 768px) {
+      max-width: 60vw;
+    }
 
     .modal-header {
       display: flex;
@@ -82,14 +90,20 @@
       button.foot-button {
         padding: 0 1.2rem;
         margin: 12px 0;
-        height: 40px;
+        height: 28px;
         background: #2a3588;
         border: 1.6px solid #2a3588;
         color: white;
-        font-weight: 600;
-        font-size: 14px;
+        font-weight: 400;
+        font-size: 12px;
         font-family: 'Nunito', sans-serif;
         cursor: pointer;
+
+        @media screen and (min-width: 768px) {
+          font-size: 14px;
+          height: 40px;
+          font-weight: 600;
+        }
 
         --border-offset: 0;
         &:hover {

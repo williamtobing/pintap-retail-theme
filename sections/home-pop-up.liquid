@@ -1,6 +1,5 @@
-{{ 'home-pop-up.css' | asset_url | stylesheet_tag }} <!-- The Modal -->
+{{ 'home-pop-up.css' | asset_url | stylesheet_tag }}
 <div class="home-pop-up" id="myModal">
-  <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
       <div class="close">
@@ -26,7 +25,7 @@
   // For Testing modal.style.display = "block";
 
   if (Cookies.get("homePopUp") !== "showPopUp") {
-    Cookies.set("homePopUp", "showPopUp", {expires: 7});
+    Cookies.set("homePopUp", "showPopUp", {expires: 1});
     modal.style.display = "block";
   }
 
@@ -38,10 +37,8 @@
     modal.style.display = "none";
   };
 
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  };
+  // When the user clicks anywhere outside of the modal, close it window.onclick =
+  // function (event) { if (event.target == modal) {
+  //     modal.style.display = "none";
+  // } };
 </script>
