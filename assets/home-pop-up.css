@@ -1,0 +1,124 @@
+/* The Modal (background) */
+.home-pop-up {
+  font-family: "Nunito", sans-serif;
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 10000;
+  /* Sit on top */
+  padding-top: 60px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+  /* Modal Content */
+  /* Add Animation */
+}
+.home-pop-up .modal-content {
+  position: relative;
+  margin: auto;
+  max-width: 60vw;
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  overflow: hidden;
+}
+.home-pop-up .modal-content .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+  /* The Close Button */
+}
+.home-pop-up .modal-content .modal-header img {
+  width: 100%;
+  height: auto;
+}
+.home-pop-up .modal-content .modal-header .close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0px 2px 12px 4px rgba(92, 92, 92, 0.16);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-pop-up .modal-content .modal-header .close p {
+  color: #000000;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 0;
+  margin-left: 1.6px;
+}
+.home-pop-up .modal-content .modal-header .close p:hover, .home-pop-up .modal-content .modal-header .close p:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+.home-pop-up .modal-content .modal-footer {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-pop-up .modal-content .modal-footer button.foot-button {
+  padding: 0 1.2rem;
+  margin: 12px 0;
+  height: 40px;
+  background: #2a3588;
+  border: 1.6px solid #2a3588;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  --border-offset: 0;
+}
+.home-pop-up .modal-content .modal-footer button.foot-button:hover {
+  border: 1.6px solid #2a3588;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.home-pop-up .modal-content .modal-footer button.foot-button:hover::after {
+  --border-offset: 0;
+}
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}

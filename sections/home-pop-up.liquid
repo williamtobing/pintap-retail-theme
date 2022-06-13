@@ -1,0 +1,47 @@
+{{ 'home-pop-up.css' | asset_url | stylesheet_tag }} <!-- The Modal -->
+<div class="home-pop-up" id="myModal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="close">
+        <p>&times;</p>
+      </div>
+      <img
+        alt="Home Pop Up"
+        src="https://res.cloudinary.com/dox0nkwax/image/upload/v1655104727/Pintap/Retail/home-pop-up_xz4ruv.webp">
+    </div>
+    <div class="modal-footer">
+      <button class="foot-button" id="myBtn">Isi survei dan dapatkan hadiahnya!</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var modal = document.getElementById("myModal");
+
+  var btn = document.getElementById("myBtn");
+
+  var span = document.getElementsByClassName("close")[0];
+
+  // For Testing modal.style.display = "block";
+
+  if (Cookies.get("homePopUp") !== "showPopUp") {
+    Cookies.set("homePopUp", "showPopUp", {expires: 7});
+    modal.style.display = "block";
+  }
+
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  btn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
