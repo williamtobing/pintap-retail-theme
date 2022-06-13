@@ -270,12 +270,7 @@
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    <script>
-      if (Cookies.get('homePopUp') === undefined) {
-        Cookies.set('homePopUp', 'true', { expires: 7 })
-        alert('welcome to the shop');
-      }
-    </script>
+    {% section 'home-pop-up' %}
 
   </body>
 </html>
