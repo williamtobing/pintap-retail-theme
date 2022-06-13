@@ -103,9 +103,9 @@
           "announcement-bar-0": {
             "type": "announcement",
             "settings": {
-              "text": "Isi survei dan dapatkan keuntungannya",
+              "text": "Daftar jadi Pintap Responden dan isi Survey",
               "color_scheme": "accent-1",
-              "link": ""
+              "link": "https:\/\/survey.pintap.id\/me\/register\/respondent"
             }
           }
         },
