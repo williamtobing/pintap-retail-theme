@@ -63,16 +63,13 @@
   font-weight: 600;
   text-decoration: none;
 }
-.otp-login-app #OTPStepTwo .select-field {
+.otp-login-app #OTPStepResetTwo .select-field {
   margin-top: 4rem;
 }
-.otp-login-app #OTPStepTwo .select-field form {
+.otp-login-app #OTPStepResetTwo .select-field form {
   margin-top: 0;
 }
-.otp-login-app #OTPStepTwo p.redirection-text {
-  color: #a80000;
-}
-.otp-login-app #OTPStepThree form input {
+.otp-login-app #OTPStepResetThree form input {
   margin: 4px;
   height: 40px;
   width: 40px;
@@ -84,16 +81,16 @@
   border: 1px solid #5c5c5c;
 }
 @media screen and (min-width: 768px) {
-  .otp-login-app #OTPStepThree form input {
+  .otp-login-app #OTPStepResetThree form input {
     margin: 6px;
     height: 48px;
     width: 48px;
   }
 }
-.otp-login-app #OTPStepThree form input:focus {
+.otp-login-app #OTPStepResetThree form input:focus {
   outline: none;
 }
-.otp-login-app #OTPStepThree button.confirm-otp {
+.otp-login-app #OTPStepResetThree button.confirm-otp {
   width: 240px;
   height: 56px;
   color: white;
@@ -101,16 +98,16 @@
   font-size: 1.24rem;
   border: 1px solid #2a3588;
 }
-.otp-login-app #OTPStepThree button.confirm-otp.disabled {
+.otp-login-app #OTPStepResetThree button.confirm-otp.disabled {
   color: white;
   background-color: #d6d6d6;
   border: 1px solid #d6d6d6;
   box-shadow: none;
 }
-.otp-login-app #OTPStepThree form.resend-form {
+.otp-login-app #OTPStepResetThree form.resend-form {
   margin-top: 0;
 }
-.otp-login-app #OTPStepThree form.resend-form button.resend-otp {
+.otp-login-app #OTPStepResetThree form.resend-form button.resend-otp {
   width: 240px;
   height: 56px;
   color: #2a3588;
@@ -119,12 +116,16 @@
   border: 1px solid #2a3588;
   margin: 0rem 0 1.5rem;
 }
-.otp-login-app #OTPStepThree form.resend-form button.resend-otp.disabled {
+.otp-login-app #OTPStepResetThree form.resend-form button.resend-otp.disabled {
   color: #d6d6d6;
   border: 1px solid #d6d6d6;
   box-shadow: none;
 }
 .otp-login-app #OTPStepFour button:focus {
+  background-color: #a7afec;
+  border: 1px solid #a7afec;
+}
+.otp-login-app #OTPStepResetFour button:focus {
   background-color: #a7afec;
   border: 1px solid #a7afec;
 }

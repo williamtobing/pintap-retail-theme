@@ -79,20 +79,16 @@
     }
   }
 
-  #OTPStepTwo {
+  #OTPStepResetTwo {
     .select-field {
       margin-top: 4rem;
       form {
         margin-top: 0;
       }
     }
-
-    p.redirection-text {
-      color: #a80000;
-    }
   }
 
-  #OTPStepThree {
+  #OTPStepResetThree {
     form {
       input {
         margin: 4px;
@@ -155,6 +151,15 @@
   }
 
   #OTPStepFour {
+    button {
+      &:focus {
+        background-color: #a7afec;
+        border: 1px solid #a7afec;
+      }
+    }
+  }
+
+  #OTPStepResetFour {
     button {
       &:focus {
         background-color: #a7afec;

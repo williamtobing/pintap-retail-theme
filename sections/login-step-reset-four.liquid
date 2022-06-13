@@ -1,0 +1,47 @@
+<div class="hidden" id="OTPStepResetFour">
+  <h2>Masukkan password baru anda</h2>
+
+  <form @submit.prevent="handleResetPassword">
+    <div class="field">
+      <input
+        :class="[mismatchPass ? 'error' : '']"
+        id="ResetPassword"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity(`Kata sandi harus memiliki panjang minimal 8
+          karakter, berisi setidaknya satu angka, satu huruf besar, satu huruf kecil, dan
+          satu karakter khusus.`)"
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        placeholder="Kata Sandi"
+        required
+        type="password"
+        v-model="resetPassword" />
+      <label for="CustomerPassword">
+        Kata Sandi
+      </label>
+    </div>
+
+    <div class="field">
+      <input
+        :class="[mismatchPass ? 'error' : '']"
+        id="ResetPasswordConfirm"
+        oninput="this.setCustomValidity('')"
+        oninvalid="this.setCustomValidity(`Kata sandi harus memiliki panjang minimal 8
+          karakter, berisi setidaknya satu angka, satu huruf besar, satu huruf kecil, dan
+          satu karakter khusus.`)"
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        placeholder="Konfirmasi Kata Sandi"
+        required
+        type="password"
+        v-model="resetPasswordConfirm" />
+      <label for="CustomerPassword">
+        Konfirmasi Kata Sandi
+      </label>
+    </div>
+    <p class="fail-text" v-if="mismatchPass">Untuk konfirmasi, harap masukkan kata sandi yang sama.</p>
+    <p class="success-text" v-if="matchPass">Atur ulang kata sandi berhasil. Silahkan login kembali.</p>
+    <button type="submit">
+      <span v-if="matchPass">Kirim</span>
+      <span v-else>Tunggu sebentar</span>
+    </button>
+  </form>
+</div>
