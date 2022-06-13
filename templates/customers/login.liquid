@@ -3,6 +3,7 @@
 
 <div class="customer login otp-login-app" id="OTPLoginApp">
   {% section 'login-step-one' %}
+  {% section 'login-step-psw' %}
   {% section 'login-step-four' %}
 </div>
 
@@ -14,7 +15,7 @@
       ],
       data() {
         return {
-          URL: "https://dev-api-mretail.pintap.id",
+          URL: "https://api.mretail.pintap.id",
 
           phone: null,
           email: null,
@@ -73,7 +74,14 @@
                       this.mismatchAuth = true;
                     }
 
-                    if (res.data.code === 0) {
+                    if (
+                      res.data.code === 0 &&
+                      res.data.message === `shopify error undefined`
+                    ) {
+                      alert(res.data.message);
+                    }
+
+                    if (res.data.code === 0 && res.data.message === "") {
                       this.goToStepFourFromOne();
                     }
                   })
@@ -95,6 +103,28 @@
             eStepOne.classList.add("hidden");
             eStepFour.classList.remove("hidden");
             eStepFour.classList.add("block");
+          }
+        },
+
+        goToStepPswFromOne() {
+          window.scrollTo(0, 0);
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepPsw = document.querySelector("#OTPStepPsw");
+          if (eStepPsw.classList.contains("hidden")) {
+            eStepOne.classList.add("hidden");
+            eStepPsw.classList.remove("hidden");
+            eStepPsw.classList.add("block");
+          }
+        },
+
+        backToStepOneFromPsw() {
+          window.scrollTo(0, 0);
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepPsw = document.querySelector("#OTPStepPsw");
+          if (eStepOne.classList.contains("hidden")) {
+            eStepPsw.classList.add("hidden");
+            eStepOne.classList.remove("hidden");
+            eStepOne.classList.add("block");
           }
         }
       }
