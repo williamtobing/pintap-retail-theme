@@ -43,7 +43,8 @@
           successOTP: false,
           failOTP: false,
 
-          checkCustomer: false
+          checkCustomer: false,
+          resetPswText: false
         };
       },
 
@@ -97,6 +98,10 @@
                       this.mismatchAuth = true;
                     }
 
+                    if (res.data.code === 0 && res.data.message === `Unidentified customer`) {
+                      this.mismatchAuth = true;
+                    }
+
                     if (
                       res.data.code === 0 &&
                       res.data.message === `shopify error undefined`
@@ -131,6 +136,10 @@
             }`)
             .then((res) => {
               if (res.data.code === 12) {
+                this.goToStepResetTwoFromResetOne();
+              }
+
+              if (res.data.code === 0) {
                 this.goToStepResetTwoFromResetOne();
               }
             })
@@ -251,6 +260,19 @@
 
         goToStepResetOneFromOne() {
           window.scrollTo(0, 0);
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepResetOne = document.querySelector("#OTPStepResetOne");
+          if (eStepResetOne.classList.contains("hidden")) {
+            eStepOne.classList.add("hidden");
+            eStepResetOne.classList.remove("hidden");
+            eStepResetOne.classList.add("block");
+          }
+        },
+
+        goToStepForgetOneFromOne() {
+          window.scrollTo(0, 0);
+          this.phone = null;
+          this.resetPswText = true;
           const eStepOne = document.querySelector("#OTPStepOne");
           const eStepResetOne = document.querySelector("#OTPStepResetOne");
           if (eStepResetOne.classList.contains("hidden")) {
