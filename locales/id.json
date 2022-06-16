@@ -302,7 +302,7 @@
     "account_fallback": "Akun",
     "activate_account": {
       "title": "Aktifkan akun",
-      "subtext": "Buat sandi untuk mengaktifkan akunmu.",
+      "subtext": "Atur ulang sandi untuk mengaktifkan akunmu.",
       "password": "Sandi",
       "password_confirm": "Konfirmasi sandi",
       "submit": "Aktifkan akun",
