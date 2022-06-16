@@ -44,7 +44,8 @@
           failOTP: false,
 
           checkCustomer: false,
-          resetPswText: false
+          resetPswText: false,
+          reset404: false
         };
       },
 
@@ -78,6 +79,13 @@
 
               if (res.data.code === 12) {
                 this.goToStepResetOneFromOne();
+              }
+
+              if (res.data.code === 52) {
+                window.location = res
+                  .data
+                  .data
+                  .account_activation_url;
               }
 
               if (res.data.code === 0) {
@@ -135,8 +143,20 @@
               this.phone
             }`)
             .then((res) => {
+              if (res.data.code === 404) {
+                this.reset404 = true;
+                this.phone = null;
+              }
+
               if (res.data.code === 12) {
                 this.goToStepResetTwoFromResetOne();
+              }
+
+              if (res.data.code === 52) {
+                window.location = res
+                  .data
+                  .data
+                  .account_activation_url;
               }
 
               if (res.data.code === 0) {
@@ -339,6 +359,7 @@
 
         backToStepOneFromResetOne() {
           window.scrollTo(0, 0);
+          this.reset404 = false;
           const eStepOne = document.querySelector("#OTPStepOne");
           const eStepResetOne = document.querySelector("#OTPStepResetOne");
           if (eStepOne.classList.contains("hidden")) {

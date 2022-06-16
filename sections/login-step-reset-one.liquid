@@ -5,6 +5,8 @@
     Anda perlu mengatur ulang kata sandi
   </h2>
 
+  <p class="fail-text" v-if="reset404">Anda belum memiliki akun. Silahkan daftar terlebih dahulu.</p>
+
   <form @submit.prevent="handlePhone">
     <div class="field">
       <input
