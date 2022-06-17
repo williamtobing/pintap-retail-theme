@@ -429,6 +429,11 @@
           "pending": "Pending"
         }
       }
+    },
+    "checkout": {
+      "contact": {
+        "city_label": "Kota\/Kabupaten"
+      }
     }
   },
   "customer_accounts": {
