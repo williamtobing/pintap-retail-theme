@@ -103,6 +103,7 @@
               this.storeData.city = null;
               this.storeData.district = null;
               this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
               this.hideProvinceLabel = false;
               this.hideCityLabel = true;
             })
@@ -126,6 +127,7 @@
 
               this.storeData.district = null;
               this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
               this.hideCityLabel = false;
               this.hideDistrictLabel = true;
             })
@@ -148,8 +150,29 @@
                 .sort((a, b) => a.name.localeCompare(b.name));
 
               this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
               this.hideDistrictLabel = false;
               this.hideSubdistrictLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        handleZipcode() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/zip/${
+              this.storeData.subdistrict
+            }`)
+            .then((res) => {
+              this.storeData.zipcode = res
+                .data
+                .data
+                .zip_code;
+
+              this.hideSubdistrictLabel = false;
             })
             .catch((err) => {
               console.log(err);
