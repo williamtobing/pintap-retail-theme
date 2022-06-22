@@ -214,6 +214,7 @@
         handleReqOtp(type) {
           console.log("Function request " + type + " OTP");
           this.typeOTP = type;
+          this.failOTP = false;
           let phone = this.customerData.phone;
 
           if (phone.startsWith("0")) {
@@ -280,6 +281,24 @@
             .then((res) => {
               if (res.data.code === 401) {
                 this.failOTP = true;
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
+              }
+
+              if (res.data.code === 400) {
+                alert(res.data.message);
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
               }
 
               if (res.data.code === 0) {
