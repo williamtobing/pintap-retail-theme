@@ -79,7 +79,7 @@
 
       <div class="field flex-1" v-if="storeData.district">
         <select
-          @change="hideSubdistrictLabel = false"
+          @change="handleZipcode"
           id="subdistrict"
           name="subdistrict"
           oninput="this.setCustomValidity('')"
@@ -101,9 +101,8 @@
     <div class="field" v-if="storeData.subdistrict">
       <input
         name="zipcode"
-        oninput="this.setCustomValidity('')"
-        oninvalid="this.setCustomValidity('Harap isi Kode Pos')"
         placeholder="Kode Pos"
+        readonly
         required
         type="text"
         v-model="storeData.zipcode">

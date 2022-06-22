@@ -103,6 +103,7 @@
               this.storeData.city = null;
               this.storeData.district = null;
               this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
               this.hideProvinceLabel = false;
               this.hideCityLabel = true;
             })
@@ -126,6 +127,7 @@
 
               this.storeData.district = null;
               this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
               this.hideCityLabel = false;
               this.hideDistrictLabel = true;
             })
@@ -148,8 +150,29 @@
                 .sort((a, b) => a.name.localeCompare(b.name));
 
               this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
               this.hideDistrictLabel = false;
               this.hideSubdistrictLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        handleZipcode() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/zip/${
+              this.storeData.subdistrict
+            }`)
+            .then((res) => {
+              this.storeData.zipcode = res
+                .data
+                .data
+                .zip_code;
+
+              this.hideSubdistrictLabel = false;
             })
             .catch((err) => {
               console.log(err);
@@ -191,6 +214,7 @@
         handleReqOtp(type) {
           console.log("Function request " + type + " OTP");
           this.typeOTP = type;
+          this.failOTP = false;
           let phone = this.customerData.phone;
 
           if (phone.startsWith("0")) {
@@ -257,6 +281,24 @@
             .then((res) => {
               if (res.data.code === 401) {
                 this.failOTP = true;
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
+              }
+
+              if (res.data.code === 400) {
+                alert(res.data.message);
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
               }
 
               if (res.data.code === 0) {
