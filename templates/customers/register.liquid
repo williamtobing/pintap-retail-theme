@@ -261,6 +261,11 @@
             });
         },
 
+        handleReReqOtp(type) {
+          this.handleReqOtp(type);
+          timer(360);
+        },
+
         handleRegisterConfirmOtp() {
           const joinNum = [
             this.numOne,
@@ -479,5 +484,37 @@
         theEvent.preventDefault();
       }
     }
+  }
+
+  let timerOn = true;
+
+  function timer(remaining) {
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+
+    var resendEl = document.getElementById("resendBtnOTP");
+    var timerResendEl = document.getElementById("disableResendBtnOTP");
+
+    resendEl.classList.add("hidden");
+    timerResendEl.classList.remove("hidden");
+
+    m = m < 10
+      ? "0" + m
+      : m;
+    s = s < 10
+      ? "0" + s
+      : s;
+    document.getElementById("disableResendSpanOTP").innerHTML = m + ":" + s;
+    remaining -= 1;
+
+    if (remaining >= 0 && timerOn) {
+      setTimeout(function () {
+        timer(remaining);
+      }, 1000);
+      return;
+    }
+
+    resendEl.classList.remove("hidden");
+    timerResendEl.classList.add("hidden");
   }
 </script>
