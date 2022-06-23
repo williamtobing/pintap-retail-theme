@@ -81,11 +81,13 @@
 .register-app #RegisterStepThree form.input-otp input:focus {
   outline: none;
 }
-.register-app #RegisterStepThree form.input-otp input[type=number]::-webkit-inner-spin-button,
-.register-app #RegisterStepThree form.input-otp input[type=number]::-webkit-outer-spin-button {
+.register-app #RegisterStepThree form.input-otp input::-webkit-outer-spin-button,
+.register-app #RegisterStepThree form.input-otp input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  margin: 0;
+}
+.register-app #RegisterStepThree form.input-otp input[type=number] {
+  -moz-appearance: textfield;
 }
 .register-app #RegisterStepThree span#disableResendSpanOTP {
   color: black !important;
