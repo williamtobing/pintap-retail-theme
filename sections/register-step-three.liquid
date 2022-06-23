@@ -13,7 +13,7 @@
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'second')"
       pattern="[0-9]"
-      type="text"
+      type="number"
       v-model="numOne">
     <input
       id="second"
@@ -21,7 +21,7 @@
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'third')"
       pattern="[0-9]"
-      type="text"
+      type="number"
       v-model="numTwo">
     <input
       id="third"
@@ -29,7 +29,7 @@
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fourth')"
       pattern="[0-9]"
-      type="text"
+      type="number"
       v-model="numThree">
     <input
       id="fourth"
@@ -37,7 +37,7 @@
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fifth')"
       pattern="[0-9]"
-      type="text"
+      type="number"
       v-model="numFour">
     <input
       id="fifth"
@@ -45,14 +45,14 @@
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'sixth')"
       pattern="[0-9]"
-      type="text"
+      type="number"
       v-model="numFive">
     <input
       id="sixth"
       maxlength="1"
       onkeypress="restrictKey(event)"
       pattern="[0-9]"
-      type="text"
+      type="number"
       v-model="numSix">
 
     <p class="success-text" v-if="successOTP">Verifikasi berhasil. Harap tunggu sebentar...</p>

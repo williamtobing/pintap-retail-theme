@@ -74,7 +74,7 @@
   }
 
   #RegisterStepThree {
-    .input-otp {
+    form.input-otp {
       input {
         margin: 4px;
         height: 40px;
@@ -95,6 +95,13 @@
         &:focus {
           outline: none;
         }
+      }
+
+      input[type='number']::-webkit-inner-spin-button,
+      input[type='number']::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
       }
     }
 
