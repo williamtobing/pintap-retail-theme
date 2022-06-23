@@ -81,6 +81,10 @@
 .register-app #RegisterStepThree .input-otp input:focus {
   outline: none;
 }
+.register-app #RegisterStepThree span#disableResendSpanOTP {
+  color: black !important;
+  font-weight: 600 !important;
+}
 .register-app #RegisterStepThree button.confirm-otp {
   width: 240px;
   height: 56px;
