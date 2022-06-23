@@ -262,7 +262,31 @@
         },
 
         handleReReqOtp(type) {
-          this.handleReqOtp(type);
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
+          this.failOTP = false;
+          let phone = this.customerData.phone;
+
+          if (phone.startsWith("0")) {
+            phone = phone.replace("0", "+62");
+          }
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/send`, {
+              phone: phone,
+              channel: type
+            })
+            .then((res) => {
+              if (res.data.code === 0) {
+                this.goToStepThreeFromTwo();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
           timer(360);
         },
 
