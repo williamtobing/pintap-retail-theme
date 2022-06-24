@@ -9,50 +9,56 @@
     class="input-otp">
     <input
       id="first"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'second')"
       pattern="[0-9]"
-      type="number"
+      type="text"
       v-model="numOne">
     <input
       id="second"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'third')"
       pattern="[0-9]"
-      type="number"
+      type="text"
       v-model="numTwo">
     <input
       id="third"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fourth')"
       pattern="[0-9]"
-      type="number"
+      type="text"
       v-model="numThree">
     <input
       id="fourth"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fifth')"
       pattern="[0-9]"
-      type="number"
+      type="text"
       v-model="numFour">
     <input
       id="fifth"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'sixth')"
       pattern="[0-9]"
-      type="number"
+      type="text"
       v-model="numFive">
     <input
       id="sixth"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       pattern="[0-9]"
-      type="number"
+      type="text"
       v-model="numSix">
 
     <p class="success-text" v-if="successOTP">Verifikasi berhasil. Harap tunggu sebentar...</p>
