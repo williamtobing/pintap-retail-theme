@@ -6,6 +6,7 @@
       <input
         :class="[mismatchAuth ? 'error' : '']"
         id="VPhone"
+        inputmode="tel"
         oninput="this.setCustomValidity('')"
         oninvalid="this.setCustomValidity('Harap isi No HP')"
         onkeypress="restrictKey(event)"

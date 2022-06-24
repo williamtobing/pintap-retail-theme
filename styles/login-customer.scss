@@ -113,6 +113,11 @@
       }
     }
 
+    span#disableResendSpanOTP {
+      color: black !important;
+      font-weight: 600 !important;
+    }
+
     button.confirm-otp {
       width: 240px;
       height: 56px;

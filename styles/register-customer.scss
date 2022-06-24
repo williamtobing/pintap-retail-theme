@@ -74,7 +74,7 @@
   }
 
   #RegisterStepThree {
-    .input-otp {
+    form.input-otp {
       input {
         margin: 4px;
         height: 40px;
@@ -251,6 +251,16 @@
         border: 1px solid #a7afec;
       }
     }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
   }
 
   span#load-animate {

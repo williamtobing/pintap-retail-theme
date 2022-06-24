@@ -60,7 +60,7 @@
 .register-app #RegisterStepTwo .select-field form {
   margin-top: 0;
 }
-.register-app #RegisterStepThree .input-otp input {
+.register-app #RegisterStepThree form.input-otp input {
   margin: 4px;
   height: 40px;
   width: 40px;
@@ -72,13 +72,13 @@
   border: 1px solid #5c5c5c;
 }
 @media screen and (min-width: 768px) {
-  .register-app #RegisterStepThree .input-otp input {
+  .register-app #RegisterStepThree form.input-otp input {
     margin: 6px;
     height: 48px;
     width: 48px;
   }
 }
-.register-app #RegisterStepThree .input-otp input:focus {
+.register-app #RegisterStepThree form.input-otp input:focus {
   outline: none;
 }
 .register-app #RegisterStepThree span#disableResendSpanOTP {
@@ -200,6 +200,14 @@
 .register-app #RegisterStepFive button:focus {
   background-color: #a7afec;
   border: 1px solid #a7afec;
+}
+.register-app input::-webkit-outer-spin-button,
+.register-app input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.register-app input[type=number] {
+  -moz-appearance: textfield;
 }
 .register-app span#load-animate::after {
   content: " .";
