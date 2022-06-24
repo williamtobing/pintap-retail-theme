@@ -82,8 +82,23 @@
         !successOTP">Konfirmasi</button>
   </form>
 
-  <form @submit.prevent="handleReqOtp('sms')" class="resend-form">
+  <form @submit.prevent="handleReReqOtp('sms')" class="resend-form">
     <input class="hidden" type="text" v-model="phone" />
-    <button :class="[successOTP ? 'disabled ' : '', 'resend-otp']" type="submit">Kirim ulang kode verifikasi</button>
+
+    <button
+      :class="[successOTP ? 'disabled ' : '', 'resend-otp']"
+      id="resendBtnOTP"
+      type="submit">
+      <span>
+        Kirim ulang kode verifikasi
+      </span>
+    </button>
+
+    <button
+      class="disabled resend-otp hidden"
+      id="disableResendBtnOTP"
+      type="button">
+      <span id="disableResendSpanOTP"></span>
+    </button>
   </form>
 </div>
