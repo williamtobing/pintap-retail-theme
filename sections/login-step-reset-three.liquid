@@ -9,6 +9,7 @@
     class="input-otp">
     <input
       id="first"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'second')"
@@ -17,6 +18,7 @@
       v-model="numOne">
     <input
       id="second"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'third')"
@@ -25,6 +27,7 @@
       v-model="numTwo">
     <input
       id="third"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fourth')"
@@ -33,6 +36,7 @@
       v-model="numThree">
     <input
       id="fourth"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'fifth')"
@@ -41,6 +45,7 @@
       v-model="numFour">
     <input
       id="fifth"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       onkeyup="clickEvent(this,'sixth')"
@@ -49,6 +54,7 @@
       v-model="numFive">
     <input
       id="sixth"
+      inputmode="numeric"
       maxlength="1"
       onkeypress="restrictKey(event)"
       pattern="[0-9]"
@@ -76,8 +82,23 @@
         !successOTP">Konfirmasi</button>
   </form>
 
-  <form @submit.prevent="handleReqOtp('sms')" class="resend-form">
+  <form @submit.prevent="handleReReqOtp('sms')" class="resend-form">
     <input class="hidden" type="text" v-model="phone" />
-    <button :class="[successOTP ? 'disabled ' : '', 'resend-otp']" type="submit">Kirim ulang kode verifikasi</button>
+
+    <button
+      :class="[successOTP ? 'disabled ' : '', 'resend-otp']"
+      id="resendBtnOTP"
+      type="submit">
+      <span>
+        Kirim ulang kode verifikasi
+      </span>
+    </button>
+
+    <button
+      class="disabled resend-otp hidden"
+      id="disableResendBtnOTP"
+      type="button">
+      <span id="disableResendSpanOTP"></span>
+    </button>
   </form>
 </div>

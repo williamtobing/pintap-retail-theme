@@ -90,6 +90,10 @@
 .otp-login-app #OTPStepResetThree form input:focus {
   outline: none;
 }
+.otp-login-app #OTPStepResetThree span#disableResendSpanOTP {
+  color: black !important;
+  font-weight: 600 !important;
+}
 .otp-login-app #OTPStepResetThree button.confirm-otp {
   width: 240px;
   height: 56px;

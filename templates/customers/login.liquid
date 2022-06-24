@@ -171,6 +171,7 @@
         handleReqOtp(type) {
           console.log("Function request " + type + " OTP");
           this.typeOTP = type;
+          this.failOTP = false;
 
           if (this.phone.startsWith("0")) {
             this.phone = this.phone.replace("0", "+62");
@@ -193,6 +194,34 @@
             });
         },
 
+        handleReReqOtp(type) {
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
+          this.failOTP = false;
+
+          if (this.phone.startsWith("0")) {
+            this.phone = this.phone.replace("0", "+62");
+          }
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/forgot/otp`, {
+              phone: this.phone,
+              channel: type
+            })
+            .then((res) => {
+              if (res.data.code === 0) {
+                this.goToStepResetThreeFromResetTwo();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          timer(360);
+        },
+
         handleRegisterConfirmOtp() {
           const joinNum = [
             this.numOne,
@@ -213,6 +242,24 @@
             .then((res) => {
               if (res.data.code === 401) {
                 this.failOTP = true;
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
+              }
+
+              if (res.data.code === 400) {
+                alert(res.data.message);
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
               }
 
               if (res.data.code === 0) {
@@ -360,6 +407,10 @@
         backToStepOneFromResetOne() {
           window.scrollTo(0, 0);
           this.reset404 = false;
+          this.checkCustomer = false;
+          this.mismatchAuth = false;
+          this.phone = null;
+          this.password = null;
           const eStepOne = document.querySelector("#OTPStepOne");
           const eStepResetOne = document.querySelector("#OTPStepResetOne");
           if (eStepOne.classList.contains("hidden")) {
@@ -432,5 +483,37 @@
         theEvent.preventDefault();
       }
     }
+  }
+
+  let timerOn = true;
+
+  function timer(remaining) {
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+
+    var resendEl = document.getElementById("resendBtnOTP");
+    var timerResendEl = document.getElementById("disableResendBtnOTP");
+
+    resendEl.classList.add("hidden");
+    timerResendEl.classList.remove("hidden");
+
+    m = m < 10
+      ? "0" + m
+      : m;
+    s = s < 10
+      ? "0" + s
+      : s;
+    document.getElementById("disableResendSpanOTP").innerHTML = m + ":" + s;
+    remaining -= 1;
+
+    if (remaining >= 0 && timerOn) {
+      setTimeout(function () {
+        timer(remaining);
+      }, 1000);
+      return;
+    }
+
+    resendEl.classList.remove("hidden");
+    timerResendEl.classList.add("hidden");
   }
 </script>
