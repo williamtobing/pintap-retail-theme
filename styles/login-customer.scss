@@ -166,9 +166,8 @@
 
   #OTPStepResetFour {
     button {
-      &:focus {
-        background-color: #a7afec;
-        border: 1px solid #a7afec;
+      &:hover {
+        border: 1px solid #333333;
       }
     }
   }
