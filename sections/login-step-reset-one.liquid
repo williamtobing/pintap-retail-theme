@@ -22,7 +22,7 @@
         v-model="phone">
       <label for="RecoverPhone">No HP</label>
     </div>
-    <button type="submit">Lanjut</button>
+    <button :disabled="isLoadingBtn" type="submit">Lanjut</button>
   </form>
 
   <a @click.prevent="backToStepOneFromResetOne" href="#">Kembali</a>

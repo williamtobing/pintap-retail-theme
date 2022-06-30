@@ -66,7 +66,11 @@
           successOTP: false,
           failOTP: false,
 
-          checkCustomer: false
+          checkCustomer: false,
+
+          isLoadingBtn: false,
+          pswValidation: "Kata sandi harus memiliki panjang minimal 8 karakter, berisi setidaknya satu ang" +
+              "ka, satu huruf besar, dan satu huruf kecil."
         };
       },
 
@@ -86,7 +90,263 @@
           });
       },
 
+      watch: {
+        customerData: {
+          deep: true,
+          handler() {
+            this.checkCustomer = false;
+          }
+
+        }
+      },
+
       methods: {
+        handleTempDataCustomer() {
+          if (this
+              .customerData
+              .phone
+              .startsWith("0")) {
+            this.customerData.phone = this
+              .customerData
+              .phone
+              .replace("0", "+62");
+          }
+
+          this.isLoadingBtn = true;
+
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/profile/email?phone=${
+              this.customerData.phone
+            }`)
+            .then((res) => {
+              this.isLoadingBtn = false;
+
+              if (res.data.code === 404) {
+                this.goToStepTwoFromOne();
+              }
+
+              if (res.data.code === 52) {
+                alert("Aktivasi melalui halaman login.");
+              }
+
+              if (
+                res.data.code === 32 ||
+                res.data.code === 12 ||
+                res.data.code === 0
+              ) {
+                window.scrollTo(0, 0);
+                this.checkCustomer = true;
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              this.isLoadingBtn = false;
+            });
+        },
+
+        handleReqOtp(type) {
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
+          let phone = this.customerData.phone;
+
+          if (phone.startsWith("0")) {
+            phone = phone.replace("0", "+62");
+          }
+
+          this.isLoadingBtn = true;
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/register`, {
+              name: this.customerData.fullname,
+              phone: this.customerData.phone,
+              password: this.customerData.password,
+              email: this.customerData.email,
+              birthdate: this.customerData.birthdate,
+              gender: this.customerData.gender
+            })
+            .then((res) => {
+              if (res.data.code === 400) {
+                alert(res.data.message);
+                this.isLoadingBtn = false;
+              }
+
+              if (res.data.code === 0) {
+                axios
+                  .post(`${
+                    this.URL
+                  }/api/v1/auth/otp/send`, {
+                    phone: phone,
+                    channel: type
+                  })
+                  .then((res) => {
+                    this.isLoadingBtn = false;
+
+                    if (res.data.code === 0) {
+                      this.goToStepThreeFromTwo();
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    this.isLoadingBtn = false;
+                  });
+              }
+            })
+            .catch((err) => {
+              alert("Pendaftaran gagal.");
+              console.log(err);
+              this.isLoadingBtn = false;
+            });
+        },
+
+        handleReReqOtp(type) {
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
+          this.failOTP = false;
+          let phone = this.customerData.phone;
+
+          if (phone.startsWith("0")) {
+            phone = phone.replace("0", "+62");
+          }
+
+          document
+            .getElementById("resendBtnOTP")
+            .classList
+            .add("hidden");
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/send`, {
+              phone: phone,
+              channel: type
+            })
+            .then((res) => {
+              if (res.data.code === 0) {
+                this.goToStepThreeFromTwo();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          timer(360);
+        },
+
+        handleRegisterConfirmOtp() {
+          const joinNum = [
+            this.numOne,
+            this.numTwo,
+            this.numThree,
+            this.numFour,
+            this.numFive,
+            this.numSix
+          ].join("");
+
+          this.isLoadingBtn = true;
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/confirm`, {
+              phone: this.customerData.phone,
+              otp: joinNum
+            })
+            .then((res) => {
+              this.isLoadingBtn = false;
+
+              if (res.data.code === 401) {
+                this.failOTP = true;
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
+              }
+
+              if (res.data.code === 400) {
+                alert(res.data.message);
+
+                this.numOne = null;
+                this.numTwo = null;
+                this.numThree = null;
+                this.numFour = null;
+                this.numFive = null;
+                this.numSix = null;
+              }
+
+              if (res.data.code === 0) {
+                localStorage.setItem("token", res
+                  .data
+                  .data
+                  .token);
+
+                this.failOTP = false;
+                this.successOTP = true;
+
+                this.goToStepFourFromThree();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              this.isLoadingBtn = false;
+            });
+        },
+
+        handleRegisterStore(e) {
+          let formData = new FormData();
+          formData.append("shop_name", this.storeData.shopName);
+          formData.append("province", this.storeData.province);
+          formData.append("city", this.storeData.city);
+          formData.append("district", this.storeData.district);
+          formData.append("subdistrict", this.storeData.subdistrict);
+          formData.append("zipcode", this.storeData.zipcode);
+          formData.append("address", this.storeData.address);
+          formData.append("address_detail", this.storeData.addressDetail);
+          formData.append("file", this.storeData.shopImg);
+
+          for (const pair of formData.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+          }
+
+          this.isLoadingBtn = true;
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/profile/address`, formData, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "multipart/form-data"
+              }
+            })
+            .then((res) => {
+              this.isLoadingBtn = false;
+
+              if (res.data.code === 400) {
+                alert(res.data.message);
+              }
+
+              if (res.data.code === 0) {
+                this.goToStepFiveFromFour();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              this.isLoadingBtn = false;
+            });
+        },
+
+        setPicture(e) {
+          this.storeData.shopImg = e.target.files[0];
+          this.pictURL = URL.createObjectURL(this.storeData.shopImg);
+        },
+
         handleProvince() {
           axios
             .get(`${
@@ -177,218 +437,6 @@
             .catch((err) => {
               console.log(err);
             });
-        },
-
-        handleTempDataCustomer() {
-          if (this
-              .customerData
-              .phone
-              .startsWith("0")) {
-            this.customerData.phone = this
-              .customerData
-              .phone
-              .replace("0", "+62");
-          }
-
-          axios
-            .get(`${
-              this.URL
-            }/api/v1/profile/email?phone=${
-              this.customerData.phone
-            }`)
-            .then((res) => {
-              if (res.data.code === 404) {
-                this.goToStepTwoFromOne();
-              }
-
-              if (res.data.code === 0) {
-                window.scrollTo(0, 0);
-                this.checkCustomer = true;
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        },
-
-        handleReqOtp(type) {
-          console.log("Function request " + type + " OTP");
-          this.typeOTP = type;
-          this.failOTP = false;
-          let phone = this.customerData.phone;
-
-          if (phone.startsWith("0")) {
-            phone = phone.replace("0", "+62");
-          }
-
-          axios
-            .post(`${
-              this.URL
-            }/api/v1/auth/register`, {
-              name: this.customerData.fullname,
-              phone: this.customerData.phone,
-              password: this.customerData.password,
-              email: this.customerData.email,
-              birthdate: this.customerData.birthdate,
-              gender: this.customerData.gender
-            })
-            .then((res) => {
-              if (res.data.code === 400) {
-                alert(res.data.message);
-              }
-
-              if (res.data.code === 0) {
-                axios
-                  .post(`${
-                    this.URL
-                  }/api/v1/auth/otp/send`, {
-                    phone: phone,
-                    channel: type
-                  })
-                  .then((res) => {
-                    if (res.data.code === 0) {
-                      this.goToStepThreeFromTwo();
-                    }
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              }
-            })
-            .catch((err) => {
-              alert("Pendaftaran gagal.");
-              console.log(err);
-            });
-        },
-
-        handleReReqOtp(type) {
-          console.log("Function request " + type + " OTP");
-          this.typeOTP = type;
-          this.failOTP = false;
-          let phone = this.customerData.phone;
-
-          if (phone.startsWith("0")) {
-            phone = phone.replace("0", "+62");
-          }
-
-          axios
-            .post(`${
-              this.URL
-            }/api/v1/auth/otp/send`, {
-              phone: phone,
-              channel: type
-            })
-            .then((res) => {
-              if (res.data.code === 0) {
-                this.goToStepThreeFromTwo();
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-
-          timer(360);
-        },
-
-        handleRegisterConfirmOtp() {
-          const joinNum = [
-            this.numOne,
-            this.numTwo,
-            this.numThree,
-            this.numFour,
-            this.numFive,
-            this.numSix
-          ].join("");
-
-          axios
-            .post(`${
-              this.URL
-            }/api/v1/auth/otp/confirm`, {
-              phone: this.customerData.phone,
-              otp: joinNum
-            })
-            .then((res) => {
-              if (res.data.code === 401) {
-                this.failOTP = true;
-
-                this.numOne = null;
-                this.numTwo = null;
-                this.numThree = null;
-                this.numFour = null;
-                this.numFive = null;
-                this.numSix = null;
-              }
-
-              if (res.data.code === 400) {
-                alert(res.data.message);
-
-                this.numOne = null;
-                this.numTwo = null;
-                this.numThree = null;
-                this.numFour = null;
-                this.numFive = null;
-                this.numSix = null;
-              }
-
-              if (res.data.code === 0) {
-                localStorage.setItem("token", res
-                  .data
-                  .data
-                  .token);
-
-                this.failOTP = false;
-                this.successOTP = true;
-
-                this.goToStepFourFromThree();
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        },
-
-        handleRegisterStore(e) {
-          let formData = new FormData();
-          formData.append("shop_name", this.storeData.shopName);
-          formData.append("province", this.storeData.province);
-          formData.append("city", this.storeData.city);
-          formData.append("district", this.storeData.district);
-          formData.append("subdistrict", this.storeData.subdistrict);
-          formData.append("zipcode", this.storeData.zipcode);
-          formData.append("address", this.storeData.address);
-          formData.append("address_detail", this.storeData.addressDetail);
-          formData.append("file", this.storeData.shopImg);
-
-          for (const pair of formData.entries()) {
-            console.log(pair[0] + ": " + pair[1]);
-          }
-
-          axios
-            .post(`${
-              this.URL
-            }/api/v1/profile/address`, formData, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-                "Content-Type": "multipart/form-data"
-              }
-            })
-            .then((res) => {
-              if (res.data.code === 400) {
-                alert(res.data.message);
-              }
-
-              if (res.data.code === 0) {
-                this.goToStepFiveFromFour();
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        },
-
-        setPicture(e) {
-          this.storeData.shopImg = e.target.files[0];
-          this.pictURL = URL.createObjectURL(this.storeData.shopImg);
         },
         /* END OF HANDLE REGION */
 

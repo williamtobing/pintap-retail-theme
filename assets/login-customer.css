@@ -129,9 +129,8 @@
   background-color: #a7afec;
   border: 1px solid #a7afec;
 }
-.otp-login-app #OTPStepResetFour button:focus {
-  background-color: #a7afec;
-  border: 1px solid #a7afec;
+.otp-login-app #OTPStepResetFour button:hover {
+  border: 1px solid #333333;
 }
 .otp-login-app span#load-animate::after {
   content: " .";

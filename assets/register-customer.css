@@ -193,10 +193,6 @@
 .register-app #RegisterStepFour form button:hover {
   border: 1px solid #333333;
 }
-.register-app #RegisterStepFour form button:focus {
-  background-color: #a7afec;
-  border: 1px solid #a7afec;
-}
 .register-app #RegisterStepFive button:focus {
   background-color: #a7afec;
   border: 1px solid #a7afec;
