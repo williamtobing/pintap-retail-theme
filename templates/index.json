@@ -41,6 +41,7 @@
         },
         "4b824bbe-81e1-4c2a-b623-969e7934145d": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify:\/\/shop_images\/Rose_Brand_image_banner.png",
             "heading": "",
