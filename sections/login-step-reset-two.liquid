@@ -3,16 +3,16 @@
   <p>Verifikasi bertujuan untuk menjaga keamanan data Anda. Silakan pilih cara verifikasi akun Anda.</p>
 
   <div class="select-field">
-    <form @submit.prevent="handleReqOtp('call')">
+    <form @submit.prevent="handleOtpCallFunction">
       <input class="hidden" type="text" v-model="phone" />
       <button :disabled="isLoadingBtn" class="select-otp" type="submit">Missed Call</button>
     </form>
 
-    <form @submit.prevent="handleReqOtp('sms')">
+    <form @submit.prevent="handleOtpSmsFunction">
       <input class="hidden" type="text" v-model="phone" />
       <button :disabled="isLoadingBtn" class="select-otp" type="submit">SMS</button>
     </form>
   </div>
 
-  <a @click.prevent="backToStepResetOneFromResetTwo" href="#">Kembali</a>
+  <a @click.prevent="handleOTPBackFunction" href="#">Kembali</a>
 </div>

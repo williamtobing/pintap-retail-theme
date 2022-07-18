@@ -90,7 +90,7 @@
         !successOTP">Konfirmasi</button>
   </form>
 
-  <form @submit.prevent="handleReReqOtp('sms')" class="resend-form">
+  <form @submit.prevent="handleReOTP" class="resend-form">
     <input class="hidden" type="text" v-model="phone" />
 
     <button

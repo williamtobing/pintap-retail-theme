@@ -8,6 +8,7 @@
   {% section 'login-step-reset-three' %}
   {% section 'login-step-reset-four' %}
   {% section 'login-step-four' %}
+  {% section 'register-step-four' %}
 </div>
 
 <script>
@@ -47,10 +48,54 @@
           resetPswText: false,
           reset404: false,
 
+          resetOTPSwitcher: false,
+
           isLoadingBtn: false,
           pswValidation: "Kata sandi harus memiliki panjang minimal 8 karakter, berisi setidaknya satu ang" +
-              "ka, satu huruf besar, dan satu huruf kecil."
+              "ka, satu huruf besar, dan satu huruf kecil.",
+
+          storeData: {
+            shopName: null,
+            province: null,
+            city: null,
+            district: null,
+            subdistrict: null,
+            zipcode: null,
+            address: null,
+            addressDetail: null,
+            shopImg: null
+          },
+
+          pictURL: null,
+
+          provinceApi: null,
+          cityApi: null,
+          districtApi: null,
+          subdistrictApi: null,
+
+          hideGenderLabel: true,
+          hideProvinceLabel: true,
+          hideCityLabel: true,
+          hideDistrictLabel: true,
+          hideSubdistrictLabel: true
         };
+      },
+
+      created() {
+        axios
+          .get(`${
+            this.URL
+          }/api/v1/region/province`)
+          .then((res) => {
+            this.provinceApi = res
+              .data
+              .data
+              .sort((a, b) => a.name_id.localeCompare(b.name_id));
+          })
+          .catch((err) => {
+            console.log(err);
+            alert(err);
+          });
       },
 
       watch: {
@@ -96,7 +141,8 @@
               }
 
               if (res.data.code === 32) {
-                alert("Perlu isi alamat. Silakan hubungi admin.");
+                this.goToStepResetTwoFromOne();
+                this.resetOTPSwitcher = true;
                 this.isLoadingBtn = false;
               }
 
@@ -156,6 +202,30 @@
             });
         },
 
+        handleOtpCallFunction() {
+          this.resetOTPSwitcher
+            ? this.handleReqOtp("call")
+            : this.handleForgetOtp("call");
+        },
+
+        handleOtpSmsFunction() {
+          this.resetOTPSwitcher
+            ? this.handleReqOtp("sms")
+            : this.handleForgetOtp("sms");
+        },
+
+        handleReOTP() {
+          this.resetOTPSwitcher
+            ? this.handleReReqOtp("sms")
+            : this.handleReForgetOtp("sms");
+        },
+
+        handleOTPBackFunction() {
+          this.resetOTPSwitcher
+            ? this.backToStepOneFromResetTwo()
+            : this.backToStepResetOneFromResetTwo();
+        },
+
         handlePhone() {
           if (this.phone.startsWith("0")) {
             this.phone = this.phone.replace("0", "+62");
@@ -182,7 +252,10 @@
               }
 
               if (res.data.code === 32) {
-                alert("Perlu isi alamat. Silakan hubungi admin.");
+                alert("Harap login untuk mengisi alamat.");
+                window.location = `${
+                  window.location.origin
+                }/account/login`;
                 this.isLoadingBtn = false;
               }
 
@@ -217,7 +290,7 @@
           axios
             .post(`${
               this.URL
-            }/api/v1/forgot/otp`, {
+            }/api/v1/auth/otp/send`, {
               phone: this.phone,
               channel: type
             })
@@ -236,6 +309,71 @@
         },
 
         handleReReqOtp(type) {
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
+          this.failOTP = false;
+
+          if (this.phone.startsWith("0")) {
+            this.phone = this.phone.replace("0", "+62");
+          }
+
+          document
+            .getElementById("resendBtnOTP")
+            .classList
+            .add("hidden");
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/auth/otp/send`, {
+              phone: this.phone,
+              channel: type
+            })
+            .then((res) => {
+              if (res.data.code === 0) {
+                this.goToStepResetThreeFromResetTwo();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err);
+            });
+
+          timer(360);
+        },
+
+        handleForgetOtp(type) {
+          console.log("Function request " + type + " OTP");
+          this.typeOTP = type;
+
+          if (this.phone.startsWith("0")) {
+            this.phone = this.phone.replace("0", "+62");
+          }
+
+          this.isLoadingBtn = true;
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/forgot/otp`, {
+              phone: this.phone,
+              channel: type
+            })
+            .then((res) => {
+              this.isLoadingBtn = false;
+
+              if (res.data.code === 0) {
+                this.goToStepResetThreeFromResetTwo();
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err);
+              this.isLoadingBtn = false;
+            });
+        },
+
+        handleReForgetOtp(type) {
           console.log("Function request " + type + " OTP");
           this.typeOTP = type;
           this.failOTP = false;
@@ -281,10 +419,14 @@
 
           this.isLoadingBtn = true;
 
+          const path = this.resetOTPSwitcher
+            ? `auth/otp/confirm`
+            : `forgot/confirm`;
+
           axios
             .post(`${
               this.URL
-            }/api/v1/forgot/confirm`, {
+            }/api/v1/${path}`, {
               phone: this.phone,
               otp: joinNum
             })
@@ -314,15 +456,23 @@
               }
 
               if (res.data.code === 0) {
-                localStorage.setItem("reset_token", res
-                  .data
-                  .data
-                  .token);
-
                 this.failOTP = false;
                 this.successOTP = true;
 
-                this.goToStepResetFourFromResetThree();
+                if (this.resetOTPSwitcher) {
+                  localStorage.setItem("token", res
+                    .data
+                    .data
+                    .token);
+                  this.goToStepRegFourFromResetThree();
+                } else {
+                  localStorage.setItem("reset_token", res
+                    .data
+                    .data
+                    .token);
+                  this.goToStepResetFourFromResetThree();
+                }
+
               }
             })
             .catch((err) => {
@@ -330,6 +480,60 @@
               alert(err);
               this.isLoadingBtn = false;
             });
+        },
+
+        handleRegisterStore(e) {
+          let formData = new FormData();
+          formData.append("shop_name", this.storeData.shopName);
+          formData.append("province", this.storeData.province);
+          formData.append("city", this.storeData.city);
+          formData.append("district", this.storeData.district);
+          formData.append("subdistrict", this.storeData.subdistrict);
+          formData.append("zipcode", this.storeData.zipcode);
+          formData.append("address", this.storeData.address);
+          formData.append("address_detail", this.storeData.addressDetail);
+          formData.append("file", this.storeData.shopImg);
+
+          for (const pair of formData.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+          }
+
+          this.isLoadingBtn = true;
+
+          axios
+            .post(`${
+              this.URL
+            }/api/v1/profile/address`, formData, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "multipart/form-data"
+              }
+            })
+            .then((res) => {
+              this.isLoadingBtn = false;
+
+              if (res.data.code === 400) {
+                alert(res.data.message);
+              }
+
+              if (res.data.code === 0) {
+                alert("Alamat berhasil didaftarkan. Harap login kembali.");
+
+                window.location = `${
+                  window.location.origin
+                }/account/login`;
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err);
+              this.isLoadingBtn = false;
+            });
+        },
+
+        setPicture(e) {
+          this.storeData.shopImg = e.target.files[0];
+          this.pictURL = URL.createObjectURL(this.storeData.shopImg);
         },
 
         handleResetPassword() {
@@ -370,6 +574,109 @@
                 this.isLoadingBtn = false;
               });
           }
+        },
+
+        handleProvince() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/city/${
+              this.storeData.province
+            }`)
+            .then((res) => {
+              this.cityApi = res
+                .data
+                .data
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              this.storeData.city = null;
+              this.storeData.district = null;
+              this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
+              this.hideProvinceLabel = false;
+              this.hideCityLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err);
+            });
+        },
+
+        handleCity() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/district/${
+              this.storeData.city
+            }`)
+            .then((res) => {
+              this.districtApi = res
+                .data
+                .data
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              this.storeData.district = null;
+              this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
+              this.hideCityLabel = false;
+              this.hideDistrictLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err);
+            });
+        },
+
+        handleDistrict() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/subdistrict/${
+              this.storeData.district
+            }`)
+            .then((res) => {
+              this.subdistrictApi = res
+                .data
+                .data
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              this.storeData.subdistrict = null;
+              this.storeData.zipcode = null;
+              this.hideDistrictLabel = false;
+              this.hideSubdistrictLabel = true;
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err);
+            });
+        },
+
+        handleZipcode() {
+          axios
+            .get(`${
+              this.URL
+            }/api/v1/region/zip/${
+              this.storeData.subdistrict
+            }`)
+            .then((res) => {
+              this.storeData.zipcode = res
+                .data
+                .data
+                .zip_code;
+
+              this.hideSubdistrictLabel = false;
+            })
+            .catch((err) => {
+              console.log(err);
+              alert(err);
+            });
+        },
+
+        removeToken() {
+          localStorage.removeItem("token");
+          localStorage.removeItem("reset_token");
+
+          this.loading = true;
         },
 
         goToStepFourFromOne() {
@@ -430,6 +737,7 @@
         },
 
         goToStepResetFourFromResetThree() {
+          this.resetOTPSwitcher = false;
           window.scrollTo(0, 0);
           const eStepResetThree = document.querySelector("#OTPStepResetThree");
           const eStepResetFour = document.querySelector("#OTPStepResetFour");
@@ -448,6 +756,47 @@
             eStepOne.classList.add("hidden");
             eStepPsw.classList.remove("hidden");
             eStepPsw.classList.add("block");
+          }
+        },
+
+        // ADDRESS REGISTER
+        goToStepResetTwoFromOne() {
+          window.scrollTo(0, 0);
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepResetTwo = document.querySelector("#OTPStepResetTwo");
+          if (eStepResetTwo.classList.contains("hidden")) {
+            eStepOne.classList.add("hidden");
+            eStepResetTwo.classList.remove("hidden");
+            eStepResetTwo.classList.add("block");
+          }
+        },
+
+        goToStepRegFourFromResetThree() {
+          this.resetOTPSwitcher = false;
+          window.scrollTo(0, 0);
+          const eStepResetThree = document.querySelector("#OTPStepResetThree");
+          const eStepRegFour = document.querySelector("#RegisterStepFour");
+          if (eStepRegFour.classList.contains("hidden")) {
+            eStepResetThree.classList.add("hidden");
+            eStepRegFour.classList.remove("hidden");
+            eStepRegFour.classList.add("block");
+          }
+        },
+        // END OF ADDRESS REGISTER
+
+        backToStepOneFromResetTwo() {
+          window.scrollTo(0, 0);
+          this.reset404 = false;
+          this.checkCustomer = false;
+          this.mismatchAuth = false;
+          this.phone = null;
+          this.password = null;
+          const eStepOne = document.querySelector("#OTPStepOne");
+          const eStepResetTwo = document.querySelector("#OTPStepResetTwo");
+          if (eStepOne.classList.contains("hidden")) {
+            eStepResetTwo.classList.add("hidden");
+            eStepOne.classList.remove("hidden");
+            eStepOne.classList.add("block");
           }
         },
 

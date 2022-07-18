@@ -449,6 +449,13 @@
               alert(err);
             });
         },
+
+        removeToken() {
+          localStorage.removeItem("token");
+          localStorage.removeItem("reset_token");
+
+          this.loading = true;
+        },
         /* END OF HANDLE REGION */
 
         goToStepTwoFromOne() {

@@ -11,7 +11,7 @@
       name="customer[password]"
       type="password">
     <p class="success-text">Pendaftaran berhasil.</p>
-    <button @click="loading = true" type="submit">
+    <button @click="removeToken" type="submit">
       <span v-if="!loading">Mulai berbelanja</span>
       <span id="load-animate" v-if="loading">Tunggu sebentar</span>
     </button>
